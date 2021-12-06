@@ -10,6 +10,7 @@ div.stackPanel {
     border: 0px dashed;
     z-index: 45;
     box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
+    cursor: default;
 }
 
 .panelHeader {
