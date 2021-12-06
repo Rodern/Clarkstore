@@ -1,0 +1,144 @@
+div.stackPanel {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100vh;
+    background-color: white;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    border: 0px dashed;
+    z-index: 45;
+    box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
+}
+
+.panelHeader {
+    display: block;
+    width: 100%;
+    height: 40vh;
+    background-color: white;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.panelHeader .exitPanel {
+    background-color: rgba(0, 0, 0, 0.479);
+    width: 30px;
+    height: 30px;
+    border: 1px none;
+    box-sizing: border-box;
+    position: absolute; 
+    right: 0px;
+    margin-right: 1%;
+    margin-top: 1px;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.panelHeader .exitPanel:hover {
+    transition: 0.12s;
+    background-color: rgba(240, 6, 6, 0.479);
+}
+
+.exitPanel img {
+    box-sizing: border-box;
+    width: inherit;
+    height: inherit;
+    margin: 0px;
+    padding: 0px;
+}
+
+.panel_list {
+    width: 100%;
+    margin: 0px;
+    height: -webkit-fill-available;
+    background-color: seagreen;
+    box-sizing: border-box;
+    list-style-type: none;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-inline-start: 01%;
+    padding-inline-end: 01%;
+    color: white;
+}
+
+.panel_list li:not(.browser-default) {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid grey;
+    margin: 0px;
+    padding-inline-start: 3%;
+    box-sizing: border-box;
+    padding-top: 5%;
+}
+
+.panel_list li:hover {
+    transition: ease-in 0.15s;
+    background-color: sienna;
+}
+
+
+/* Styles for Grids */
+.gridBody {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	align-content: flex-start;
+	justify-content: center;
+	padding-top: 30px;
+}
+
+/* 
+.gridBody .grid {
+	width: 40%;
+	height: 23%;
+	display: inline-block;
+	position: relative;
+	background-color: rgb(18, 22, 78);
+	text-align: center;
+	color: white;
+	border: 1px solid white;
+	border-radius: 10px;
+	margin: 2px;
+} */
+
+.gridBody .grid {
+	width: 128px; /* calc((100%/2)-5);*/ 
+	height: 120px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	background-color: rgba(197, 197, 197, 0.5);
+	/* background-image: radial-gradient(circle, rgb(18, 22, 78), rgb(44, 52, 165), rgb(18, 22, 78));
+	background-image: radial-gradient( rgb(44, 52, 165) 5%, rgb(18, 22, 78) 90%,  rgb(44, 52, 165) 5%); */
+	text-align: center;
+	color: white;
+	border: 1px solid rgba(18, 22, 78, 0.5);
+	box-shadow: 1px 1px 2px 1px rgba(18 22 78 / 83%);
+	border-radius: 5%;
+	margin: 4px;
+}
+
+.gridBody .grid:hover{
+	background-color: white;
+	transition: ease-in-out 0.3s;
+	color: rgb(18, 22, 78);
+}
+
+.gridBody .grid img {
+	margin: auto;
+}
+
+.gridBody .grid img.selected {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+}
+
+.gridBody .grid svg {
+	width: 45%;
+	height: 45%;
+	margin: auto;
+}
