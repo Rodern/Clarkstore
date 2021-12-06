@@ -23,6 +23,20 @@
 } */
 
 
+@media only screen and (max-width: 600px) {
+    div.stackPanel {
+        display: none;
+        width: 0px;
+    }
+    .gridBody{
+        margin-left: 0px;
+    }
+    .panelHeader .exitPanel {
+        display: block;
+    }
+}
+
+
 @media only screen and (max-width: 400px) {
     div#welcomeView {
         width: 100%;

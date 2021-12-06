@@ -17,7 +17,9 @@ function Loader() {
     var exploreDom = $.ajax({
         url: "routes/explore.html",
         success: function () {
-            var eDom = $(exploreDom.responseText).appendTo($('.main_content'));
+            var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function(){
+                $.getScript('scripts/dashboard.js');
+            });
         }
     });
 }
