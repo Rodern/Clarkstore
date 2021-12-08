@@ -1,99 +1,105 @@
 div.stackPanel {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    height: 100vh;
-    background-color: white;
-    /* background-color: rgb(78, 78, 78); */
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    border: 0px dashed;
-    z-index: 45;
-    box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
-    cursor: default;
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	height: 100vh;
+	/* background-color: white;
+	background-color: rgb(78, 78, 78); */
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	border: 0px dashed;
+	z-index: 45;
+	box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
+	cursor: default;
+	margin-top: 40px;
+	backdrop-filter: blur(9px);
+	overflow: hidden;
 }
 
 .panelHeader {
-    display: block;
-    width: 100%;
-    height: 40vh;
-    background-color: white;
-    margin: 0px;
-    box-sizing: border-box;
-    z-index: inherit;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.479);
+	display: block;
+	width: 100%;
+	height: 40vh;
+	background-color: white;
+	margin: 0px;
+	box-sizing: border-box;
+	z-index: inherit;
+	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.479);
 }
 
 .panelHeader .exitPanel {
-    background-color: rgb(78, 78, 78);
-    width: 30px;
-    height: 30px;
-    border: 1px none;
-    box-sizing: border-box;
-    position: absolute; 
-    right: 0px;
-    margin-right: 1%;
-    margin-top: 1px;
-    padding: 0px;
-    border-radius: 5px;
-    display: none;
+	background-color: rgb(78, 78, 78);
+	width: 30px;
+	height: 30px;
+	border: 1px none;
+	box-sizing: border-box;
+	position: absolute; 
+	right: 0px;
+	margin-right: 1%;
+	margin-top: 1px;
+	padding: 0px;
+	border-radius: 5px;
+	display: none;
 }
 
 .panelHeader .exitPanel:hover {
-    transition: 0.12s;
-    background-color: rgba(240, 6, 6, 0.479);
+	transition: 0.12s;
+	background-color: rgba(240, 6, 6, 0.479);
 }
 
 .exitPanel img {
-    box-sizing: border-box;
-    width: inherit;
-    height: inherit;
-    margin: 0px;
-    padding: 0px;
+	box-sizing: border-box;
+	width: inherit;
+	height: inherit;
+	margin: 0px;
+	padding: 0px;
 }
 
 .panel_list {
-    width: 100%;
-    margin: 0px;
-    height: -webkit-fill-available;
-    background-color: rgb(1 99 52);
-    box-sizing: border-box;
-    list-style-type: none;
-    padding: 5px 0px 0px 0px;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    padding-inline-start: 01%;
-    padding-inline-end: 01.5%;
-    color: white;
-    display: flex;
-    flex-direction: column;
+	width: 100%;
+	margin: 0px;
+	height: -webkit-fill-available;
+	background-color: rgba(1, 99, 52, 0.452);
+	box-sizing: border-box;
+	list-style-type: none;
+	padding: 5px 0px 0px 0px;
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	padding-inline-start: 01%;
+	padding-inline-end: 01.5%;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 .panel_list li:not(.browser-default) {
-    width: 100%;
-    height: 40px;
-    border-bottom: 1px solid rgb(128, 128, 128);
-    margin: 0px;
-    padding-inline-start: 3%;
-    box-sizing: border-box;
-    padding-top: 5%;
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.644);
+	margin: 0px;
+	padding-inline-start: 3%;
+	box-sizing: border-box;
+	padding-top: 5%;
+	text-shadow: black 0 0 4px;
+	overflow: hidden;
 }
 
 .panel_list li:hover {
-    transition: ease-in 0.15s;
-    background-color: rgba(255, 255, 255, 0.58);
+	transition: ease-in 0.15s;
+	background-color: rgba(255, 255, 255, 0.58);
 }
 
 div.stackInfo {
-    display: block;
-    width: 100%;
-    height: 150px;
-    background-color: rgba(0, 0, 0, 0.74);
-    box-sizing: border-box;
-    color: white;
-    position: relative;
-    bottom: 0%;
+	display: block;
+	width: 100%;
+	height: 150px;
+	background-color: rgba(0, 0, 0, 0.74);
+	box-sizing: border-box;
+	color: white;
+	position: relative;
+	bottom: 0%;
 }
 
 /* Styles for Grids */
@@ -106,6 +112,7 @@ div.stackInfo {
 	align-content: flex-start;
 	justify-content: center;
 	padding-top: 30px;
+	gap: 2rem 1rem;
 }
 
 .gridBody .grid {
@@ -114,6 +121,7 @@ div.stackInfo {
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	padding: 3px;
 	background-color: rgba(197, 197, 197, 0.5);
 	/* background-image: radial-gradient(circle, rgb(18, 22, 78), rgb(44, 52, 165), rgb(18, 22, 78));
 	background-image: radial-gradient( rgb(44, 52, 165) 5%, rgb(18, 22, 78) 90%,  rgb(44, 52, 165) 5%); */
@@ -122,8 +130,8 @@ div.stackInfo {
 	border: 1px solid rgba(18, 22, 78, 0.5);
 	box-shadow: 1px 1px 2px 1px rgba(18 22 78 / 83%);
 	border-radius: 5%;
-	margin: 4px;
 	backdrop-filter: blur(1px);
+	overflow: hidden;
 }
 
 .gridBody .grid:hover{
