@@ -8,7 +8,7 @@ function Loader() {
 
 
     var stackPanelDom = $.ajax({
-        url: "routes/stackPanel.html",
+        url: "routes/panels/stackPanel.html",
         success: function () {
             var stDom = $(stackPanelDom.responseText).appendTo($('body'));
         }
