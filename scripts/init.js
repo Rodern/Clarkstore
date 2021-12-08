@@ -18,12 +18,27 @@ function Loader() {
         url: "routes/views/exploreView.html",
         success: function () {
             var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function(){
+
+                load_Dock();
+
                 $.getScript('scripts/dashboard.js');
                 $('.headerCaption').text('Explore');
             });
         }
     });
+
 }
+
+function load_Dock() {
+    var dockDom = $.ajax({
+        url: "routes/panels/dockPanel.html",
+        success: function () {
+            var dDom = $(dockDom.responseText).appendTo($('.main_content')).ready(function () {
+            });
+        }
+    });
+}
+
 $(document).ready(function (){
     var adminIsLoggedIn = localStorage.getItem("loggedIn");
     //alert(adminIsLoggedIn)
