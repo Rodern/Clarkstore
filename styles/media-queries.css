@@ -40,6 +40,9 @@
     .panelHeader .exitPanel {
         display: block;
     }
+    .dockPanel {
+        margin: 0px;
+    }
 }
 
 
