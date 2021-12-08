@@ -25,6 +25,7 @@
         })
     });
 
-    function hText(text) {
-        $('.headerCaption').text('Dashboard');
-    }
+
+    $('.panel_list li').on('click', function() {
+        alert('Hello There!!!');
+    });

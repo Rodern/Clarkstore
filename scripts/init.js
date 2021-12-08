@@ -19,6 +19,7 @@ function Loader() {
         success: function () {
             var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function(){
                 $.getScript('scripts/dashboard.js');
+                $('.headerCaption').text('Explore');
             });
         }
     });
