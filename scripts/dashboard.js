@@ -105,6 +105,20 @@ $(".headerMenu").on('click', function() {
 				}
 			});
 		} else if (itemID == 'clickId_log') {
-			logout_handler();
+			popUpBox('alert', 'Are you sure you want to logout?');
+			$(globalAlertConfirm).addClass('confirmLogout');
+			$('.confirmLogout').on('click', function () {
+				$(globalAlertConfirm).removeClass('confirmLogout');
+				clearPopUpBox();
+				logout_handler();
+			});
+
+			$(globalAlertCancel).addClass('cancel_logout');
+			$(globalAlertCancel).on('click', function() {
+				$(globalAlertConfirm).removeClass('confirmLogout');
+				$(globalAlertCancel).removeClass('cancel_logout');
+				clearPopUpBox();
+			})
+			//logout_handler();
 		}
 	});
