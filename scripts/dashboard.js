@@ -122,3 +122,38 @@ $(".headerMenu").on('click', function() {
 			//logout_handler();
 		}
 	});
+
+	$('.grid').on('mouseover', function(e) {
+		var item_id = e.target.id;
+
+		if(item_id == '') {
+
+		} else if (item_id == 'openSales') {
+			dockInfoWrite('Enter Sales', 'This provide a form for you to enter your sales');
+			console.log('Mouse is over')
+		} else if (item_id == '') {
+
+		} else if (item_id == '') {
+
+		} else if (item_id == '') {
+
+		} else if (item_id == '') {
+
+		} else if (item_id == '') {
+
+		}
+
+	});
+
+	function dockInfoWrite(name, desc) {
+
+		$('.dockPanel').html('');
+		var dom = `
+			<p class="gridnameH">Name:</p>
+			<p class="gridName">` + name + `</p>
+
+			<p class="gridDescH">Description:</p>
+			<p class="gridDesc">` + desc + `</p>
+			`
+		$('.dockPanel').html(dom);
+	}

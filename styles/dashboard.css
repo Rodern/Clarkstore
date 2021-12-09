@@ -169,7 +169,8 @@ div.stackInfo {
 	color: rgb(18, 22, 78);
 }
 
-.gridBody .grid img {
+.gridBody .grid .gridIcon {
+	width: 80px;
 	margin: auto;
 }
 
@@ -193,4 +194,12 @@ div.stackInfo {
 	overflow: hidden;
 	border-top: 1px solid rgb(151, 151, 151);
 	margin: 0px 0px 0px 250px;
+	color: white;
+	text-decoration: none;
+	font-family: 'product sans light';
+	padding: 2% 2%;
+}
+
+.dockPanel > h4 {
+	margin: 0px;
 }
