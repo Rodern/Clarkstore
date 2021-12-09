@@ -145,15 +145,22 @@ $(".headerMenu").on('click', function() {
 
 	});
 
+	$('.grid').on('mouseleave', function() {
+		$('.dockPanel').html('');
+	})
+
 	function dockInfoWrite(name, desc) {
 
-		$('.dockPanel').html('');
+		//$('.dockPanel').html('');
 		var dom = `
-			<p class="gridnameH">Name:</p>
-			<p class="gridName">` + name + `</p>
-
-			<p class="gridDescH">Description:</p>
-			<p class="gridDesc">` + desc + `</p>
+				<div class'ncover'>
+					<p class="gridnameH">Name:</p>
+					<p class="gridName">` + name + `</p>
+				</div>
+				<div class'dcover'>
+					<p class="gridDescH">Description:</p>
+					<p class="gridDesc">` + desc + `</p>
+				</div>
 			`
 		$('.dockPanel').html(dom);
 	}

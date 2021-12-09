@@ -15,6 +15,7 @@ html, body {
 	background-blend-mode: darken;
 	overflow: hidden;
 	box-sizing: border-box;
+	backdrop-filter: blur(50px);
 	/* font-family: "Open Sans", Arial, Helvetica, sans-serif; */
 }
 
@@ -26,6 +27,8 @@ div#main_content {
 	width: 100vw;
 	min-width: 100%;
 	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.281);
+	backdrop-filter: blur(1px);
 }
 
 header.page_header {

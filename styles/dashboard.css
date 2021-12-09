@@ -59,7 +59,7 @@ div.stackPanel {
 	height: inherit;
 	margin: 0px;
 	padding: 0px;
-	image-rendering: pixelated;
+	image-rendering: auto;
 }
 
 .panel_list {
@@ -115,6 +115,7 @@ div.stackPanel {
 	image-rendering: pixelated;
 	margin-left: auto;
 	margin-top: 1%;
+	image-rendering: auto;
 }
 
 div.stackInfo {
