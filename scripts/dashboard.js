@@ -198,11 +198,11 @@ function modalHandler(mName) {
 		});
 
 	}
-	alert(modalView);
+
 	var modalDom = `
 		<div class="modalView">
 			<header class="modalHeader">
-				<h2 class="headerCaption" id="modalheaderCaption">asf</h2>
+				<h2 class="headerCaption" id="modalheaderCaption">Modal Header</h2>
 				<div class="exitModal">
 					<img src="images/exit.png" alt="" class="emImg">
 				</div>
@@ -210,5 +210,7 @@ function modalHandler(mName) {
 			` + modalView + `
 		</div>
 	`
-	$(modalDom).appendTo('body');
+	$(modalDom).appendTo('body').ready(function() {
+		$(modalDom).fadeIn(5000);
+	});
 }
