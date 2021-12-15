@@ -123,14 +123,14 @@ $(".headerMenu").on('click', function() {
 		}
 	});
 
-	$('.grid').on('mouseover', function(e) {
+	$('.grid, .grid img, .grid h4').on('mouseover', function(e) {
 		var item_id = e.target.id;
 
-		if(item_id == '') {
-
-		} else if (item_id == 'openSales') {
+		if (item_id == 'openSales') {
 			dockInfoWrite('Enter Sales', 'This provide a form for you to enter your sales');
 			console.log('Mouse is over')
+		} else if (item_id == '') {
+
 		} else if (item_id == '') {
 
 		} else if (item_id == '') {
@@ -153,14 +153,62 @@ $(".headerMenu").on('click', function() {
 
 		//$('.dockPanel').html('');
 		var dom = `
-				<div class'ncover'>
-					<p class="gridnameH">Name:</p>
-					<p class="gridName">` + name + `</p>
-				</div>
-				<div class'dcover'>
-					<p class="gridDescH">Description:</p>
-					<p class="gridDesc">` + desc + `</p>
-				</div>
+				<table class="dockInfoTable">
+					<tr>
+						<th>Name:</th>
+						<td>` + name + `</td>
+					</tr>
+
+					<tr>
+						<th>Description:</th>
+						<td>` + desc + `</td>
+					</tr>
+				</table>
 			`
 		$('.dockPanel').html(dom);
 	}
+
+
+
+$('.grid').on('click', function (e) {
+	var item_id = e.target.id;
+
+	if (item_id == 'openSales') {
+		modalHandler('rec');
+	} else if (item_id == '') {
+
+	} else if (item_id == '') {
+
+	} else if (item_id == '') {
+
+	} else if (item_id == '') {
+
+	} else if (item_id == '') {
+
+	}
+
+});
+
+function modalHandler(mName) {
+	var modalView;
+
+	if(mName == 'rec') {
+		var modalView = $.ajax({
+			url: 'routes/modals/recModal.html'
+		});
+
+	}
+	alert(modalView);
+	var modalDom = `
+		<div class="modalView">
+			<header class="modalHeader">
+				<h2 class="headerCaption" id="modalheaderCaption">asf</h2>
+				<div class="exitModal">
+					<img src="images/exit.png" alt="" class="emImg">
+				</div>
+			</header>
+			` + modalView + `
+		</div>
+	`
+	$(modalDom).appendTo('body');
+}
