@@ -1,3 +1,15 @@
+$(document).ready(function(){
+    if ('serviceWorker' in navigator) {
+        try {
+            navigator.serviceWorker.register('/serviceWorker/sw.js');
+            console.log("Succesfully registered Service Worker");
+        } catch (error) {
+            console.log("Service worker registration failed");
+        }
+
+    }
+})
+
 function Loader() {
     var headerDom = $.ajax({
         url: "routes/header.html",
