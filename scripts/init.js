@@ -1,4 +1,8 @@
-$(document).ready(function(){
+window.addEventListener('load', () => {
+    registerMySW();
+});
+
+async function registerMySW() {
     if ('serviceWorker' in navigator) {
         try {
             navigator.serviceWorker.register('/serviceWorker/sw.js');
@@ -8,7 +12,7 @@ $(document).ready(function(){
         }
 
     }
-})
+}
 
 function Loader() {
     var headerDom = $.ajax({
