@@ -5,8 +5,7 @@ var staticAssets = [
     '/styles/index.css',
     '/scripts/index.js',
     '/manifest.json',
-    '/images/logo.png',
-    '/serviceWorkers/sw.js'
+    '/images/logo.png'
 ];
 
 //Demand to install
@@ -38,7 +37,7 @@ async function cacheFirst(req) {
     return cached || fetch(req);
 }
 
-await function networkAndCache(req) {
+async function networkAndCache(req) {
     const cache = await caches.open(cacheName);
     try {
         const fresh = await fetch(req);
