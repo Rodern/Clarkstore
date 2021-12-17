@@ -1,17 +1,15 @@
-window.addEventListener('load', () => {
-    registerMySW();
-});
+registerMySW();
 
 async function registerMySW() {
-    if ('serviceWorker' in navigator) {
-        try {
-            navigator.serviceWorker.register('serviceWorkers/sw.js');
-            console.log("Succesfully registered Service Worker");
-        } catch (error) {
-            console.log("Service worker registration failed");
-        }
-
+if ('serviceWorker' in navigator) {
+    try {
+        navigator.serviceWorker.register('serviceWorkers/sw.js');
+        console.log("Succesfully registered Service Worker");
+    } catch (error) {
+        console.log("Service worker registration failed");
     }
+
+}
 }
 
 function Loader() {
