@@ -4,7 +4,7 @@
     "name": "ClexAn Foods",
     "short_name": "ClexAn",
     "description": "Managment App for ClexAn Foods store",
-    "start_url": "/",
+    "start_url": "/index.html",
     "background_color": "#2f3d58",
     "theme_color": "#2f3d58",
     "orientation": "any",
