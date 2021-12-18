@@ -9,13 +9,13 @@ html, body {
 	padding: 0%;
 	accent-color: rgb(1, 156, 1);
 	font-family: 'Open Sans semibold';
-	background-image: url('../images/bg1.jpg');
+	/* background-image: url('../images/bg1.jpg'); */
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-blend-mode: darken;
 	overflow: hidden;
 	box-sizing: border-box;
-	backdrop-filter: blur(50px);
+	/* backdrop-filter: blur(50px); */
 	/* font-family: "Open Sans", Arial, Helvetica, sans-serif; */
 }
 
@@ -27,7 +27,7 @@ div#main_content {
 	width: 100vw;
 	min-width: 100%;
 	overflow: hidden;
-	background-color: rgba(0, 0, 0, 0.281);
+	/* background-color: rgba(0, 0, 0, 0.281); */
 	backdrop-filter: blur(1px);
 }
 

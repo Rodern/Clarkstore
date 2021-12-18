@@ -127,7 +127,7 @@ $(".headerMenu").on('click', function() {
 		var item_id = e.target.id;
 
 		if (item_id == 'openSales') {
-			dockInfoWrite('Enter Sales', 'This provide a form for you to enter your sales');
+			dockInfoWrite('Enter Sales', 'This provides a form for you to enter your sales');
 			console.log('Mouse is over')
 		} else if (item_id == '') {
 

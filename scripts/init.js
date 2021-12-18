@@ -1,6 +1,4 @@
 registerMySW();
-
-async function registerMySW() {
 if ('serviceWorker' in navigator) {
     try {
         navigator.serviceWorker.register('serviceWorkers/sw.js');
@@ -10,9 +8,13 @@ if ('serviceWorker' in navigator) {
     }
 
 }
+async function registerMySW() {
+
 }
 
 function Loader() {
+    $('body').css('background-image', "url('images/bg1.jpg')");
+    $('#main_content').css('background-color', "rgba(0, 0, 0, 0.281)")
     var headerDom = $.ajax({
         url: "routes/header.html",
         success: function () {
