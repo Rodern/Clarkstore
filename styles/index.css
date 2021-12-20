@@ -9,7 +9,7 @@ html, body {
 	padding: 0%;
 	accent-color: rgb(1, 156, 1);
 	font-family: 'Open Sans semibold';
-	/* background-image: url('../images/bg1.jpg'); */
+	/* background-image: url(../img/31172_uhd.jpg); */
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-blend-mode: darken;
@@ -71,7 +71,7 @@ div.headerMenu img {
 	height: inherit;
 }
 
-.headerCaption {
+.headerCaption, .headerCaption-0 {
 	color: white;
 	padding: 0%;
 	margin: 0%;
