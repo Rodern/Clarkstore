@@ -80,3 +80,7 @@ div.headerMenu img {
 	
 	text-shadow: black 0 0 4px;
 }
+
+.headerCaption-0:first-of-type {
+    color: rgb(153, 255, 153);
+}
