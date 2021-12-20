@@ -11,7 +11,7 @@ var staticAssets = [
 //Demand to install
 self.addEventListener('install', async e => {
     const cache = await caches.open(cacheName);
-    await cache.addAll(staticAssets);
+    //await cache.addAll(staticAssets);
     return self.skipWaiting();
 });
 
