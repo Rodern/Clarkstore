@@ -1,11 +1,12 @@
 var cacheName = 'ClexAn';
 var staticAssets = [
-    'index.html',
-    'styles/index.css',
-    'scripts/index.js',
-    'manifest.json',
-    'images/logo.png',
-    'serviceWorkers/sw.js'
+    '/',
+    '/index.html',
+    '/styles/index.css',
+    '/scripts/index.js',
+    '/manifest.json',
+    '/images/logo.png',
+    '/serviceWorkers/sw.js'
 ];
 
 //Demand to install

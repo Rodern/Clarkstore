@@ -1,5 +1,18 @@
-
-
+function stackCloseCaller() {
+	$('.stackPanel').animate({
+		width: "0px"
+	},
+		{
+			duration: 200,
+			easing: 'linear',
+			complete: function () {
+				$('.stackPanel').css({
+					'display': '',
+					'width': '250px'
+				});
+			}
+		})
+}
 $(".headerMenu").on('click', function() {
 		$('.stackPanel').css({
 			'width': '0px',
@@ -14,7 +27,7 @@ $(".headerMenu").on('click', function() {
 	});
 
 	$('.exitPanel').on('click', function() {
-		$('.stackPanel').animate({
+		/* $('.stackPanel').animate({
 			width: "0px"
 		},
 		{
@@ -26,7 +39,9 @@ $(".headerMenu").on('click', function() {
 					'width': '250px'
 				});
 			}
-		})
+		}) */
+
+		stackCloseCaller();
 	});
 
 	function logout_handler() {
@@ -123,29 +138,31 @@ $(".headerMenu").on('click', function() {
 		}
 	});
 
-	$('.grid, .grid img, .grid h4').on('mouseover', function(e) {
-		var item_id = e.target.id;
+	$('.grid a').on('mouseover', function(e) {
+		var item_id = e.target.parentElement.id;
 
-		if (item_id == 'openSales') {
+		if (item_id == 'enterSales') {
 			dockInfoWrite('Enter Sales', 'This provides a form for you to enter your sales');
-			console.log('Mouse is over')
+			 
+		} else if (item_id == 'addItems') {
+			dockInfoWrite('Add Items', 'An available form view for you to add items for sale');
+			 
+		} else if (item_id == 'viewItems') {
+			dockInfoWrite('View Items', 'List all items, sort, manage them ');
+			 
+		} else if (item_id == 'category') {
+			dockInfoWrite('Categories', 'Add, list and manage categories of the items');
+			 
 		} else if (item_id == '') {
-
-		} else if (item_id == '') {
-
-		} else if (item_id == '') {
-
-		} else if (item_id == '') {
-
-		} else if (item_id == '') {
-
-		} else if (item_id == '') {
-
+			dockInfoWrite('Blank', 'More blank');
+			 
+		} else if (item_id == 'warehouse') {
+			dockInfoWrite('Stock Management', 'Manage items stock easily this view');
+			 
 		}
-
 	});
 
-	$('.grid').on('mouseleave', function() {
+	$('.grid a').on('mouseleave', function() {
 		$('.dockPanel').html('');
 	})
 
@@ -171,46 +188,50 @@ $(".headerMenu").on('click', function() {
 
 
 $('.grid').on('click', function (e) {
-	var item_id = e.target.id;
+	var item_id = e.target.parentElement.id;
 
-	if (item_id == 'openSales') {
+	if (item_id == 'enterSales') {
+		modalHandler('rec');
+	} else if (item_id == 'addItems') {
+		modalHandler('rec');
+	} else if (item_id == 'viewItems') {
+		modalHandler('rec');
+	} else if (item_id == 'category') {
 		modalHandler('rec');
 	} else if (item_id == '') {
-
-	} else if (item_id == '') {
-
-	} else if (item_id == '') {
-
-	} else if (item_id == '') {
-
-	} else if (item_id == '') {
-
+		modalHandler('stock');
 	}
-
 });
 
 function modalHandler(mName) {
-	var modalView;
+	var modalView, h_name;
 
 	if(mName == 'rec') {
-		var modalView = $.ajax({
-			url: 'routes/modals/recModal.html'
+		h_name = 'Record Sales'
+		var request = $.ajax({
+			url: 'routes/modals/recModal.html',
+			success: function () {
+				modalView = request.responseText;
+				modalCaller()
+			}
 		});
+	} 
 
+	function modalCaller() {
+		var modalDom = `
+			<div class="modalView">
+				<header class="modalHeader">
+					<h2 class="headerCaption" id="modalheaderCaption">` + h_name +`</h2>
+					<div class="exitModal">
+						<img src="images/exit.png" alt="" class="emImg">
+					</div>
+				</header>
+				` + modalView + `
+			</div>
+		`
+		$(modalDom).appendTo('body').ready(function() {
+			$('.modalView').fadeIn(200);
+		});
 	}
-
-	var modalDom = `
-		<div class="modalView">
-			<header class="modalHeader">
-				<h2 class="headerCaption" id="modalheaderCaption">Modal Header</h2>
-				<div class="exitModal">
-					<img src="images/exit.png" alt="" class="emImg">
-				</div>
-			</header>
-			` + modalView + `
-		</div>
-	`
-	$(modalDom).appendTo('body').ready(function() {
-		$(modalDom).fadeIn(5000);
-	});
+	
 }

@@ -178,8 +178,8 @@ div.stInfo span {
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	padding: 3px;
-	background-color: rgba(197, 197, 197, 0.5);
+	padding: 0px;
+	background-color: rgba(196, 196, 196, 0.5);
 	/* background-image: radial-gradient(circle, rgb(18, 22, 78), rgb(44, 52, 165), rgb(18, 22, 78));
 	background-image: radial-gradient( rgb(44, 52, 165) 5%, rgb(18, 22, 78) 90%,  rgb(44, 52, 165) 5%); */
 	text-align: center;
@@ -195,8 +195,17 @@ div.stInfo span {
 
 .gridBody .grid:hover{
 	background-color: white;
-	transition: ease-in-out 0.3s;
+	transition: ease-in-out 0.2s;
 	color: rgb(18, 22, 78);
+}
+.gridBody .grid a.gridOverLayer {
+	text-decoration: none;
+	position: absolute;
+	background-color: rgba(0, 128, 0, 0);
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0%;
+	height: -webkit-fill-available;
 }
 
 .gridBody .grid .gridIcon {
@@ -226,7 +235,7 @@ div.stInfo span {
 	margin: 0px 0px 0px 250px;
 	color: white;
 	text-decoration: none;
-	font-family: 'product sans light';
+	font-family: 'Arial';
 	padding: 2% 2%;
 	letter-spacing: 0.1rem;
 }

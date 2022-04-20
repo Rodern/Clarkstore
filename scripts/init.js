@@ -1,17 +1,13 @@
-registerMySW();
+
 if ('serviceWorker' in navigator) {
     try {
         navigator.serviceWorker.register('serviceWorkers/sw.js');
         console.log("Succesfully registered Service Worker");
     } catch (error) {
-        console.log("Service worker registration failed");
+        console.log("Service worker registration failed" + error);
     }
 
 }
-async function registerMySW() {
-
-}
-
 function Loader() {
     $('body').css('background-image', "url('images/bg1.jpg')");
     $('#main_content').css('background-color', "rgba(0, 0, 0, 0.281)")
