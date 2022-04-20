@@ -9,6 +9,8 @@ html, body {
 	padding: 0%;
 	accent-color: rgb(1, 156, 1);
 	font-family: 'Open Sans semibold';
+	font-style: normal;
+	letter-spacing: 01px;
 	/* background-image: url(../img/31172_uhd.jpg); */
 	background-repeat: no-repeat;
 	background-size: cover;

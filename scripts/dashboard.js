@@ -13,7 +13,9 @@ function stackCloseCaller() {
 			}
 		})
 }
+var stWidth = false;
 $(".headerMenu").on('click', function() {
+	if(!stWidth){
 		$('.stackPanel').css({
 			'width': '0px',
 			'display': 'flex'
@@ -24,6 +26,8 @@ $(".headerMenu").on('click', function() {
 			duration: 200,
 			easing: 'linear'
 		})
+		stWidth = true;
+	} else {stackCloseCaller(); stWidth =false }
 	});
 
 	$('.exitPanel').on('click', function() {
@@ -42,6 +46,7 @@ $(".headerMenu").on('click', function() {
 		}) */
 
 		stackCloseCaller();
+		stWidth = false;
 	});
 
 	function logout_handler() {
