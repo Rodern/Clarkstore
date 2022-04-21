@@ -17,7 +17,7 @@
         "itemID": "3",
         "Item_name": "Chin-chin",
         "item_type": "large",
-        "unit_price": "\"XAF 1,000.00\"",
+        "unit_price": "XAF 1,000.00",
         "in_stock": "5"
     },
     {
@@ -38,7 +38,7 @@
         "itemID": "6",
         "Item_name": "Pea nuts",
         "item_type": "large",
-        "unit_price": "\"XAF 1,300.00\"",
+        "unit_price": "XAF 1,300.00",
         "in_stock": "10"
     },
     {
@@ -52,7 +52,7 @@
         "itemID": "8",
         "Item_name": "Eggs",
         "item_type": "tray",
-        "unit_price": "\"XAF 2,200.00\"",
+        "unit_price": "XAF 2,200.00",
         "in_stock": "4"
     },
     {

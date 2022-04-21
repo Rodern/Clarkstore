@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 380px;
-    min-width: 380px;
-    max-width: 380px;
+    width: 480px;
+    min-width: 480px;
+    max-width: 480px;
     height: fit-content;
     background-color: white;
     /* background-color: rgba(255, 255, 255, 0.63); */
@@ -21,6 +21,76 @@
     display: flex;
     text-align: center;
     font-size: 30px;
+    margin: auto;
+    text-align: center;
+    color: rgb(94, 90, 90);
     text-shadow: 1px 1px 2px black;
     cursor: default;
+}
+
+div.added{
+    background-color: white;
+    width: 100%;
+    height: 300px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    overflow-y: auto;
+}
+
+ul.addedlist {
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+	box-sizing: border-box;
+    overflow: auto;
+}
+
+div.added table.addedlisttable {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    text-align: left;
+}
+div.added table.addedlisttable th {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+div.added table.addedlisttable tr th, div.added table.addedlisttable tr td {
+    border-bottom: 1px solid #ddd;
+    height: 20px;
+}
+
+div.added table.addedlisttable tr:hover {background-color: #f5f5f5}
+
+div.added table.addedlisttable #tHeader {
+    border:  1px solid rgb(94, 90, 90);
+    width: 100%;
+    background-color: rgb(0, 158, 26);
+}
+
+div.added table tr.Ldata {
+    color: white;
+}
+
+div.added table tr td.Ldata1, div.added li table tr td.Ldata1 {
+    width: fit-content;
+}
+
+div.added table tr td.Ldata2, div.added li table tr td.Ldata2 {
+    width: 120px;
+}
+
+div.added table tr td.Ldata3, div.added li table tr td.Ldata3 {
+    width: fit-content;
+}
+
+div.added table tr td.Ldata4, div.added li table tr td.Ldata4 {
+    width: fit-content;
+}
+
+div.added table tr td.Ldata5, div.added li table tr td.Ldata5 {
+    width: fit-content;
 }

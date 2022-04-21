@@ -1,4 +1,4 @@
-
+var GlobalData = new Array();
 if ('serviceWorker' in navigator) {
     try {
         navigator.serviceWorker.register('serviceWorkers/sw.js');
@@ -36,6 +36,15 @@ function Loader() {
                 $.getScript('scripts/dashboard.js');
                 $('.headerCaption').text('Explore');
             });
+        }
+    });
+
+    var JsonData = $.ajax({
+        url: "worksheets/clexan-foods.json",
+        success: function () {
+            //console.log(JsonData.responseText);
+            GlobalData = JSON.parse(JsonData.responseText);
+            console.log(GlobalData);
         }
     });
 

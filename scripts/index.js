@@ -50,15 +50,15 @@ $(document).ready(function () {
                         marginLeft: "-200px",
                         opacity: "0"
                     },
-                        {
-                            duration: 200,
-                            easing: "linear",
-                            complete: function () {
-                                $('#welcomeView').remove();
-                                Loader();
-                                localStorage.setItem("loggedIn", "true");
-                            }
-                        });
+                    {
+                        duration: 200,
+                        easing: "linear",
+                        complete: function () {
+                            $('#welcomeView').remove();
+                            Loader();
+                            localStorage.setItem("loggedIn", "true");
+                        }
+                    });
                 } else {
                     popUpBox('warn', 'Wrong password! Please check again.');
                     $(globalAlertConfirm).addClass('closeInError');

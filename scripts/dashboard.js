@@ -1,3 +1,5 @@
+var stWidth = false;
+
 function stackCloseCaller() {
 	$('.stackPanel').animate({
 		width: "0px"
@@ -13,9 +15,10 @@ function stackCloseCaller() {
 			}
 		})
 }
-var stWidth = false;
+
 $(".headerMenu").on('click', function() {
-	if(!stWidth){
+	if(stWidth == false){
+		stWidth = true;
 		$('.stackPanel').css({
 			'width': '0px',
 			'display': 'flex'
@@ -25,26 +28,11 @@ $(".headerMenu").on('click', function() {
 		{
 			duration: 200,
 			easing: 'linear'
-		})
-		stWidth = true;
-	} else {stackCloseCaller(); stWidth =false }
-	});
+		});
+	} else {stackCloseCaller(); stWidth = false; }
+});
 
 	$('.exitPanel').on('click', function() {
-		/* $('.stackPanel').animate({
-			width: "0px"
-		},
-		{
-			duration: 200,
-			easing: 'linear',
-			complete: function() {
-				$('.stackPanel').css({
-					'display': '',
-					'width': '250px'
-				});
-			}
-		}) */
-
 		stackCloseCaller();
 		stWidth = false;
 	});
@@ -172,8 +160,6 @@ $(".headerMenu").on('click', function() {
 	})
 
 	function dockInfoWrite(name, desc) {
-
-		//$('.dockPanel').html('');
 		var dom = `
 				<table class="dockInfoTable">
 					<tr>
@@ -233,10 +219,23 @@ function modalHandler(mName) {
 				</header>
 				` + modalView + `
 			</div>
-		`
+		`;
 		$(modalDom).appendTo('body').ready(function() {
 			$('.modalView').fadeIn(200);
+			var addList = $('.addedlisttable');
+			GlobalData.forEach(element => {
+				var li_element =`<tr class"Ldata" id="id_ ` + element.itemID + ` ">
+									<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
+									<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
+									<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
+									<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
+									<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
+								<tr>`;
+				$(li_element).appendTo(addList);
+			});
 		});
 	}
-	
+			$('div.added table tr:nth-child(even)').css({
+				'background-color': '#f2f2f2'
+			})
 }
