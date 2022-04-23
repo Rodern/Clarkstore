@@ -44,7 +44,7 @@ $(".headerMenu").on('click', function() {
 	}
 
 	$('.panel_list li').on('click', function(e) {
-		var itemID = e.target.id;
+		var itemID = e.target.id || e.target.id;
 
 		if(itemID != 'clickId_log') {
 			$('.panel_list li').removeClass('li_selected');
