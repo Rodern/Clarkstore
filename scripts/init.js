@@ -2,7 +2,7 @@ var GlobalData = new Array();
 
 if ('serviceWorker' in navigator) {
     try {
-        navigator.serviceWorker.register('serviceWorker s/sw.js');
+        navigator.serviceWorker.register('serviceWorker.js');
         console.log("Succesfully registered Service Worker");
     } catch (error) {
         console.log("Service worker registration failed" + error);
@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator) {
 }
 function Loader() {
     $('body').css('background-image', "url('images/bg1.jpg')");
-    $('#main_content').css('background-color', "rgba(0, 0, 0, 0.281)")
+    $('#main_content').css('background-color', "rgba(255, 255, 255, 0.932)"); // "rgba(0, 0, 0, 0.281)");
     var headerDom = $.ajax({
         url: "routes/header.html",
         success: function () {

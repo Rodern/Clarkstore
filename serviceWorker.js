@@ -12,13 +12,8 @@ var staticAssets = [
 //Demand to install
 self.addEventListener('install', async e => {
     const cache = await caches.open(cacheName);
-    await cache.addAll(staticAssets);
+    //await cache.addAll(staticAssets);
     return self.skipWaiting();
-});
-
-/* Serve cached content when offline */
-self.addEventListener('active', e => {
-    //self.clients.claim();
 });
 
 self.addEventListener('fetch', e => {
@@ -30,6 +25,11 @@ self.addEventListener('fetch', e => {
     } else {
         e.respondWith(networkAndCache(req));
     }
+});
+
+/* Serve cached content when offline */
+self.addEventListener('active', e => {
+    self.clients.claim();
 });
 
 async function cacheFirst(req) {

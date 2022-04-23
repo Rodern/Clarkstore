@@ -130,7 +130,6 @@ div.item_view {
     box-shadow: 0px 0px 5px 1px rgba(105, 105, 105, 0.83);
     border-radius: 10%;
     backdrop-filter: blur(1px);
-    overflow: hidden;
     font-size: small;
     cursor: default;
     margin: auto;

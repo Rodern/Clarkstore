@@ -37,6 +37,7 @@ header.page_header {
 	width: 100vw;
 	height: fit-content;
 	background-color: white;
+	cursor: Default;
 }
 
 header.page_header > .headerChild {
