@@ -1,7 +1,8 @@
 var GlobalData = new Array();
+
 if ('serviceWorker' in navigator) {
     try {
-        navigator.serviceWorker.register('serviceWorkers/sw.js');
+        navigator.serviceWorker.register('serviceWorker s/sw.js');
         console.log("Succesfully registered Service Worker");
     } catch (error) {
         console.log("Service worker registration failed" + error);
@@ -35,16 +36,16 @@ function Loader() {
 
                 $.getScript('scripts/dashboard.js');
                 $('.headerCaption').text('Explore');
+                //$.unload('scripts/dashboard.js');
             });
         }
     });
 
     var JsonData = $.ajax({
-        url: "worksheets/clexan-foods.json",
+        url: "database/clexan-foods.json",
         success: function () {
             //console.log(JsonData.responseText);
             GlobalData = JSON.parse(JsonData.responseText);
-            console.log(GlobalData);
         }
     });
 

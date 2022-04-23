@@ -1,4 +1,5 @@
 .addForm {
+    justify-self: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -93,4 +94,76 @@ div.added table tr td.Ldata4, div.added li table tr td.Ldata4 {
 
 div.added table tr td.Ldata5, div.added li table tr td.Ldata5 {
     width: fit-content;
+}
+
+
+
+
+div.item_view {
+    background-color: rgba(255, 255, 255, 0.932);
+    width: 100%;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5%;
+    max-width: 100%;
+    overflow-y: auto;
+	gap: 1rem 1rem;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+.item_view .mini_card {
+    background-color: wheat;
+    width: 120px; /* calc((100%/2)-5);*/
+    height: 120px;
+    display: none;
+    flex-direction: column;
+    position: relative;
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    /* background-image: radial-gradient(circle, rgb(18, 22, 78), rgb(44, 52, 165), rgb(18, 22, 78));
+	background-image: radial-gradient( rgb(44, 52, 165) 5%, rgb(18, 22, 78) 90%,  rgb(44, 52, 165) 5%); */
+    text-align: center;
+    color: black;
+    border: 1px solid rgba(105, 105, 105, 0.479);
+    box-shadow: 0px 0px 5px 1px rgba(105, 105, 105, 0.83);
+    border-radius: 10%;
+    backdrop-filter: blur(1px);
+    overflow: hidden;
+    font-size: small;
+    cursor: default;
+    margin: auto;
+    opacity: 0;
+}
+
+.item_view .mini_card .itPrice, .item_view .mini_card .itName {
+    text-align: none;
+    /* margin-left: 5%; */
+}
+
+.item_view .mini_card img.itImg {
+    width: 90px;
+    margin: auto;
+    shape-rendering: optimizeSpeed;
+}
+
+.item_view .mini_card img.itEdit {
+    position: absolute;
+    width: 20px;
+    margin-right: 5px;
+    margin-top: 5px;
+    right: 0px;
+    top: 0%;
+    /* border: 1px dashed black; */
+    border-radius: 20%;
+    padding: 2%;
+}
+
+.item_view .mini_card img.itEdit:hover {
+    transition: .1s ease-in;
+    width: 22px;
+    margin-right: 4px;
+    margin-top: 4px;
+    background-color: rgba(167, 167, 167, 0.288);
 }

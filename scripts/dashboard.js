@@ -1,5 +1,6 @@
 var stWidth = false;
 
+var iiiif;
 function stackCloseCaller() {
 	$('.stackPanel').animate({
 		width: "0px"
@@ -58,6 +59,7 @@ $(".headerMenu").on('click', function() {
 				url: "routes/views/exploreView.html",
 				success: function () {
 					var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function () {
+						$.getScript('scripts/dashboard.js');
 						load_Dock();
 					});
 				}
@@ -186,7 +188,7 @@ $('.grid').on('click', function (e) {
 	} else if (item_id == 'addItems') {
 		modalHandler('rec');
 	} else if (item_id == 'viewItems') {
-		modalHandler('rec');
+		modalHandler('view');
 	} else if (item_id == 'category') {
 		modalHandler('rec');
 	} else if (item_id == '') {
@@ -200,10 +202,76 @@ function modalHandler(mName) {
 	if(mName == 'rec') {
 		h_name = 'Record Sales'
 		var request = $.ajax({
-			url: 'routes/modals/recModal.html',
+			url: 'routes/modals/rec_modal.html',
 			success: function () {
 				modalView = request.responseText;
-				modalCaller()
+				modalCaller();
+				var addList = $('.addedlisttable');
+				GlobalData.forEach(element => {
+					var li_element = `<tr class"Ldata" id="id_ ` + element.itemID + ` ">
+									<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
+									<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
+									<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
+									<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
+									<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
+								<tr>`;
+					$(li_element).appendTo(addList);
+				});
+			}
+		});
+	}
+	if (mName == 'view') {
+		h_name = 'View Items'
+		var request = $.ajax({
+			url: 'routes/modals/items_modal.html',
+			success: function () {
+				modalView = request.responseText;
+				modalCaller();
+				var view = $('.item_view');
+				setTimeout(function () {
+					GlobalData.forEach(element => {
+						iiiif = element.itemID;
+						var li_element = `<div id="id` + element.itemID + `" class="mini_card">
+											<img class="itImg" src="img/item.png" alt="">
+											<span class="itName"> ` + element.Item_name + ` </span>
+											<span class="itPrice"> ` + element.unit_price + ` </span>
+											<img class="itEdit" src="images/editcon.png">
+										</div>`;
+										
+						$(li_element).appendTo(view).ready(function(){
+							// $('#id' + element.itemID).fadeIn(3000);
+							$('#id' + element.itemID).css({
+								'display' : 'flex'
+							})
+							setTimeout(function () {
+							$('#id' + element.itemID).animate({
+									opacity: "1"
+								},
+								{
+									duration: 200,
+									easing: "linear"
+								});
+							}, (element.itemID+'00')/1);
+						
+						});
+					});
+				}, 300);
+				
+				$('.mini_card').on('click', function(e){
+					if (e.target.className != "itEdit"){
+						var item_id = e.target.id || e.target.parentElement.id;
+						alert(item_id); iiiif = e;
+					} else {
+						var item_id = e.target.id || e.target.parentElement.id;
+						$('.modalView').fadeOut(200);
+						$('.modalView').remove();
+						GlobalData.forEach(element => {
+							if (element.itemID == item_id.substring(2)){
+								console.log(element);
+							}
+						});
+					}
+				})
 			}
 		});
 	} 
@@ -222,17 +290,14 @@ function modalHandler(mName) {
 		`;
 		$(modalDom).appendTo('body').ready(function() {
 			$('.modalView').fadeIn(200);
-			var addList = $('.addedlisttable');
-			GlobalData.forEach(element => {
-				var li_element =`<tr class"Ldata" id="id_ ` + element.itemID + ` ">
-									<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
-									<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
-									<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
-									<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
-									<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
-								<tr>`;
-				$(li_element).appendTo(addList);
+			$('.modalView').css({
+				'display' : 'flex',
+				'flex-direction' : 'column'
 			});
+			$('.exitModal').on('click', function(){
+				$('.modalView').fadeOut(200);
+				$('.modalView').remove();
+			})
 		});
 	}
 			$('div.added table tr:nth-child(even)').css({
