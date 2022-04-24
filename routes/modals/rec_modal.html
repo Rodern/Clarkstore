@@ -1,57 +1,61 @@
-<div class="second-child addForm">
+<div class="record_view">
     <h3 id="es-header">Enter sales</h3>
-    <form action="post" class="addform">
+    <form class="record_form">
         <table id="formTable" >
             <tr>
                 <td>
                     <label for="name">Item Name</label>
                 </td>
                 <td>
-                    <input type="text" name="name" id="itname" placeholder="Item Name">
+                    <input name="name" id="itname" list="item_list"></input>
+                    <datalist id="item_list">
+                    </datalist>
+                </td>
+                <td>
+                    <label for="itprice">Unit Price</label>
+                </td>
+                <td>
+                    <input disabled width="20px" type="number" name="price" id="itprice" placeholder="N/A">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="name">Item Name</label>
+                    <label for="quantity">Quantity</label>
                 </td>
                 <td>
-                    <input type="text" name="name" id="itname" placeholder="Item Name">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="name">Item Name</label>
+                    <input type="number" name="quantity" id="it_qty" placeholder="Quantity sold">
                 </td>
                 <td>
-                    <input type="text" name="name" id="itname" placeholder="Item Name">
+                    <label for="itamount">Amount</label>
+                </td>
+                <td>
+                    <input type="number" name="name" id="itamount" placeholder="">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="name">Item Name</label>
+                    <label for="date">Date</label>
                 </td>
                 <td>
-                    <input type="text" name="name" id="itname" placeholder="Item Name">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="name">Item Name</label>
-                </td>
-                <td>
-                    <input type="text" name="name" id="itname" placeholder="Item Name">
+                    <input type="date" name="date" id="itdate" >
                 </td>
             </tr>
         </table>
+        <div class="btnflex">
+            <button type="reset" class="resetbtn">Reset</button>
+            <button type="button" class="btn_add" id="btntolist">Add Record</button>
+        </div>
+        
     </form>
     <div class="added">
         <table class="addedlisttable">
             <tr class="Ldata" id="tHeader">
-                <th class="Ldata1" id="tID">ID</th>
-                <th class="Ldata2" id="tName">Item Name</th>
-                <th class="Ldata3" id="tType">Type</th>
-                <th class="Ldata4" id="tPrice">Unit Price</th>
-                <th class="Ldata5" id="tStock">In stock</th>
+                <th class="Ldata1 tID">ID</th>
+                <th class="Ldata2 tName">Item Name</th>
+                <th class="Ldata3 tQty">Quantity</th>
+                <th class="Ldata4 tAmount">Amount</th>
+                <th class="Ldata5 tDate">Date</th>
+                <th class="Ldata6 tOP"></th>
             </tr>
         </table>
     </div>

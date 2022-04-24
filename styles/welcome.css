@@ -118,7 +118,7 @@ form div.formSection span#inputError-0, form div.formSection span#inputError-1 {
     font-size: 0.8rem;
 }
 
-form div.formSection button#login {
+form div.formSection button#login, .btn_add, .resetbtn {
     width: 60%;
     height: 30px;
     margin: auto;
@@ -135,9 +135,9 @@ form div.formSection button#login {
 form div.formSection button#login:focus, 
 form div.formSection button#login:hover {
     color: black;
-    background-color: slategrey;
+    background-color: rgb(0, 99, 0);
     border: 0.12em solid rgb(43, 42, 42);
-    box-shadow: 0px 0px 5px 0px rgb(0, 0, 0);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.644);
 }
 
 p.forgot_pass {

@@ -1,4 +1,4 @@
-.addForm {
+.record_view {
     justify-self: center;
     box-sizing: border-box;
     display: flex;
@@ -6,7 +6,7 @@
     margin: auto;
     width: 480px;
     min-width: 480px;
-    max-width: 480px;
+    max-width: 580px;
     height: fit-content;
     background-color: white;
     /* background-color: rgba(255, 255, 255, 0.63); */
@@ -29,6 +29,12 @@
     cursor: default;
 }
 
+form.record_form {
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
 div.added{
     background-color: white;
     width: 100%;
@@ -38,12 +44,51 @@ div.added{
     overflow-y: auto;
 }
 
-ul.addedlist {
+.record_form {
+    display: flex;
+    flex-direction: column;
+}
+
+#formTable{
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+#formTable tr td #itprice, #itamount {
+    width: 100px;
+}
+
+.btnflex{
+    display: flex;
     width: 100%;
-    margin: 0%;
-    padding: 0%;
-	box-sizing: border-box;
-    overflow: auto;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.record_form button.btn_add, .resetbtn{
+    width: fit-content;
+    padding: 0% 3%;
+    margin-left: unset;
+    margin-inline-end: 0%;
+}
+
+.record_form button.btn_add:focus,
+.record_form button.btn_add:hover {
+    color: black;
+    background-color: rgb(0, 99, 0);
+    border: 0.12em solid rgb(43, 42, 42);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.644);
+}
+
+input#itdate:not(.browser-default){
+    resize: none;
+}
+
+div.added {
+    overflow-x: auto;
 }
 
 div.added table.addedlisttable {
@@ -52,6 +97,11 @@ div.added table.addedlisttable {
     box-sizing: border-box;
     border-collapse: collapse;
     text-align: left;
+    color: rgb(34, 34, 34);
+    cursor: default;
+    word-wrap: normal;
+    word-break: keep-all;
+    overflow-wrap: unset;
 }
 div.added table.addedlisttable th {
     border-left: 1px solid white;
@@ -62,6 +112,9 @@ div.added table.addedlisttable th {
 div.added table.addedlisttable tr th, div.added table.addedlisttable tr td {
     border-bottom: 1px solid #ddd;
     height: 20px;
+    word-wrap: normal;
+    word-break: keep-all;
+    overflow-wrap: unset;
 }
 
 div.added table.addedlisttable tr:hover {background-color: #f5f5f5}
@@ -69,35 +122,51 @@ div.added table.addedlisttable tr:hover {background-color: #f5f5f5}
 div.added table.addedlisttable #tHeader {
     border:  1px solid rgb(94, 90, 90);
     width: 100%;
-    background-color: rgb(0, 158, 26);
-}
-
-div.added table tr.Ldata {
     color: white;
+    background-color: rgba(0, 128, 0, 0.788);
 }
 
-div.added table tr td.Ldata1, div.added li table tr td.Ldata1 {
-    width: fit-content;
+.tDate, .Ldata5 {
+    min-width: 120px;
 }
 
-div.added table tr td.Ldata2, div.added li table tr td.Ldata2 {
-    width: 120px;
+.Ldata5 {
+    text-align: center;
 }
 
-div.added table tr td.Ldata3, div.added li table tr td.Ldata3 {
-    width: fit-content;
+.tName, Ldata2{
+    min-width: 200px;
+    padding: 0% 0% 0% 01%;
 }
 
-div.added table tr td.Ldata4, div.added li table tr td.Ldata4 {
-    width: fit-content;
+.tID, .tQty, .tAmount {
+    text-align: right;
+    text-indent: unset;
+}
+.tAmount{
+    min-width: 120px;
+}
+.itC {
+    text-align: left;
+    float: left;
+    padding-left: 3%;
+}
+.tDel{
+    min-width: fit-content;
+}
+.itDel{
+    right: 0px;
+    box-sizing: border-box;
+    width: 27px;
+    background-color: red;
+    padding: 0.1%;
+    border-radius: 15%;
+    margin: 0px;width: fit-content;
 }
 
-div.added table tr td.Ldata5, div.added li table tr td.Ldata5 {
-    width: fit-content;
+.itDel:hover {
+   background-color:  rgba(192, 0, 0, 0.863);
 }
-
-
-
 
 div.item_view {
     background-color: rgba(255, 255, 255, 0.932);
@@ -130,6 +199,7 @@ div.item_view {
     box-shadow: 0px 0px 5px 1px rgba(105, 105, 105, 0.83);
     border-radius: 10%;
     backdrop-filter: blur(1px);
+	font-family: 'Open Sans semibold';
     font-size: small;
     cursor: default;
     margin: auto;

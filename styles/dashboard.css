@@ -189,7 +189,7 @@ div.stInfo span {
 	border-radius: 5%;
 	backdrop-filter: blur(1px);
 	overflow: hidden;
-	font-size: small;
+	font-size: 14px;
 	cursor: default;
 }
 
@@ -234,6 +234,7 @@ div.stInfo span {
 
 .dockPanel {
 	width: 100%;
+	max-width: 100%;
 	height: -webkit-fill-available;
 	background-color: rgba(0, 0, 0, 0.918);
 	box-sizing: border-box;
@@ -242,9 +243,8 @@ div.stInfo span {
 	margin: 0px 0px 0px 250px;
 	color: white;
 	text-decoration: none;
-	font-family: 'Product Sans light';
-	font-weight: lighter;
-	font-size: 1rem;
+	font-family: 'Open Sans light';
+	font-size: 0.8rem;
 	font-style: normal;
 	padding: 2% 2%;
 	letter-spacing: 0.1rem;
@@ -257,6 +257,7 @@ div.stInfo span {
 	text-align: left;
 	border: 2px solid white;
 	width: 100%;
+	max-width: 100%;
 	box-sizing: border-box;
 }
 

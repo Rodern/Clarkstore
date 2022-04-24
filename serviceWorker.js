@@ -16,16 +16,16 @@ self.addEventListener('install', async e => {
     return self.skipWaiting();
 });
 
-self.addEventListener('fetch', e => {
-    const req = e.request;
-    const url = new URL(req.url);
+// self.addEventListener('fetch', e => {
+//     const req = e.request;
+//     const url = new URL(req.url);
 
-    if(url.origin === loacation.origin) {
-        e.respondWith(cacheFirst(req));
-    } else {
-        e.respondWith(networkAndCache(req));
-    }
-});
+//     if(url.origin === loacation.origin) {
+//         e.respondWith(cacheFirst(req));
+//     } else {
+//         e.respondWith(networkAndCache(req));
+//     }
+// });
 
 /* Serve cached content when offline */
 self.addEventListener('active', e => {

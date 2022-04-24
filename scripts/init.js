@@ -1,4 +1,29 @@
-var GlobalData = new Array();
+let ItemList = new Array();
+let TempItemList = new Array();
+let SalesList = new Array();
+let TempSalesList = new Array();
+class Item {
+    constructor(itemID, item_name, item_type, unit_price, in_stock, item_img) {
+        this.itemID = itemID;
+        this.item_name = item_name;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.in_stock = in_stock;
+        this.item_img = item_img;
+    }
+}
+class SalesItem {
+    constructor(itemID, saleID, item_name, item_type, unit_price, quantity, amount, date) {
+        this.itemID = itemID;
+        this.saleID = saleID;
+        this.item_name = item_name;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.date = date;
+    }
+}
 
 if ('serviceWorker' in navigator) {
     try {
@@ -45,7 +70,7 @@ function Loader() {
         url: "database/clexan-foods.json",
         success: function () {
             //console.log(JsonData.responseText);
-            GlobalData = JSON.parse(JsonData.responseText);
+            ItemList = JSON.parse(JsonData.responseText);
         }
     });
 

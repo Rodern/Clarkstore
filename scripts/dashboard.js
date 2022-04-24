@@ -44,7 +44,7 @@ $(".headerMenu").on('click', function() {
 	}
 
 	$('.panel_list li').on('click', function(e) {
-		var itemID = e.target.id || e.target.id;
+		var itemID = e.target.id || e.target.parentElement.id;
 
 		if(itemID != 'clickId_log') {
 			$('.panel_list li').removeClass('li_selected');
@@ -206,16 +206,107 @@ function modalHandler(mName) {
 			success: function () {
 				modalView = request.responseText;
 				modalCaller();
+				var item_list = $('#item_list');
 				var addList = $('.addedlisttable');
-				GlobalData.forEach(element => {
-					var li_element = `<tr class"Ldata" id="id_ ` + element.itemID + ` ">
-									<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
-									<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
-									<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
-									<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
-									<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
-								<tr>`;
-					$(li_element).appendTo(addList);
+				ItemList.forEach(element => {
+					var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
+					// var li_element = `<tr class"Ldata" id="id_ ` + element.itemID + ` ">
+					// 				<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
+					// 				<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
+					// 				<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
+					// 				<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
+					// 				<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
+					// 			<tr>`;
+					$(option).appendTo(item_list);
+					// $(li_element).appendTo(addList);
+				});
+				$('#itname').change(function () {
+					var btn = $('.btn_add').text();
+					if (btn != "Update"){
+						var name = $('#itname').val().toString();
+						if(name == '' || name == null){
+
+							var qty = $('#it_qty').val('');
+							var utp = $('#itprice').val('');
+							var name = $('#itname').val('');
+							var amt = $('#itamount').val('');
+						}
+						ItemList.forEach(element => {
+							var str = element.Item_name + ' (' + element.item_type + ')';
+							if (str == name) {
+								$('#itprice').val(element.unit_price.substring(4))
+							}
+						});
+					}
+				})
+				var minimum_qty = 1;
+				$('#it_qty').change(function () {
+					var qty = $('#it_qty').val();
+					var utp = $('#itprice').val();
+					var name = $('#itname').val().toString();
+					// GlobalData.forEach(element => {
+					// 	var str = element.Item_name + ' (' + element.item_type + ')';
+					// 	if (str == name) {
+					// 		//minimum_qty = element.mim_qty;
+					// 	}
+					// });
+					var amt = $('#itamount').val((qty/1)*(utp/1));
+				})
+				$('.resetbtn').on('click', function(){
+					reset_es();
+				});var uid = '';
+				$('.btn_add').on('click', function clickAdd(e){
+					//var tid = (new Date()).getTime();
+					
+					var name = $('#itname').val();
+					var qty = $('#it_qty').val();
+					var amt = $('#itamount').val();
+					var dt = new Date(); dt = $('#itdate').val();
+					iiiif = dt;
+					var ut = $('#itprice').val();
+					if(name == '' || qty == '' || dt == ''){
+						popUpBox('warn', 'Field(s) are empty! Please check again.');
+						$(globalAlertConfirm).addClass('closeInError');
+						$('.closeInError').on('click', function () { 
+							$(globalAlertConfirm).removeClass('closeInError');
+							clearPopUpBox();
+						});
+					} else {
+						if(e.target.id == "btntolist"){
+							if(uid != ''){
+								$('#tid' + uid).remove()
+							}
+							var tid = (new Date()).getTime();
+							var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+							var trItem = `<tr class="Ldata" id="tid` + (new Date()).getTime() + `">
+									<td class="Ldata1" id="tID">` + (new Date()).getTime() + `</td>
+									<td class="Ldata2 tName">` + name + `</td>
+									<td class="Ldata3 tQty">` + qty + `</td>
+									<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + amt + `</td>
+									<td class="Ldata5 tDate">` + dt + `</td>
+									<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
+								</tr>`;
+
+							$(trItem).appendTo(addList);
+							$('.itDel').on('click', function(e) {
+								var did = e.target.parentElement.parentElement.id;
+								$('#' + did).remove();
+							});
+							$('#tid' + tid).on('click', function(e){
+								if (e.target.className != "itDel"){
+									uid = e.target.parentElement.id.substring(3);
+									name = $('#itname').val($('#tid' + uid + ' .Ldata2').text());
+									qty = $('#it_qty').val($('#tid' + uid + ' .Ldata3').text());
+									amt = $('#itamount').val($('#tid' + uid + ' .Ldata4').text().substring(4));
+									dt = $('#itdate').val($('#tid' + uid + ' .Ldata5').text());
+									var btmmod = $('.btn_add');
+									btmmod.text('Update');
+								}
+							});
+
+							reset_es();
+						}
+					}
 				});
 			}
 		});
@@ -229,7 +320,7 @@ function modalHandler(mName) {
 				modalCaller();
 				var view = $('.item_view');
 				setTimeout(function () {
-					GlobalData.forEach(element => {
+					ItemList.forEach(element => {
 						iiiif = element.itemID;
 						var li_element = `<div id="id` + element.itemID + `" class="mini_card">
 											<img class="itImg" src="img/item.png" alt="">
@@ -265,7 +356,7 @@ function modalHandler(mName) {
 						var item_id = e.target.id || e.target.parentElement.id;
 						$('.modalView').fadeOut(200);
 						$('.modalView').remove();
-						GlobalData.forEach(element => {
+						ItemList.forEach(element => {
 							if (element.itemID == item_id.substring(2)){
 								console.log(element);
 							}
@@ -303,4 +394,16 @@ function modalHandler(mName) {
 			$('div.added table tr:nth-child(even)').css({
 				'background-color': '#f2f2f2'
 			})
+}
+
+function reset_es() {
+	var name = $('#itname').val('');
+	var qty = $('#it_qty').val('');
+	var amt = $('#itamount').val('');
+	var dt = $('#itdate').val('');
+	var ut = $('#itprice').val('');
+	uid = '';
+
+	var btmmod = $('.btn_add');
+	btmmod.text('Add Record');
 }
