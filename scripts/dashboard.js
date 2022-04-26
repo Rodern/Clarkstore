@@ -234,7 +234,10 @@ function modalHandler(mName) {
 						ItemList.forEach(element => {
 							var str = element.Item_name + ' (' + element.item_type + ')';
 							if (str == name) {
-								$('#itprice').val(element.unit_price.substring(4))
+								var str = element.unit_price.substring(4);
+								str = str.replace('.00', '');
+								str = str.replace(',', '');
+								$('#itprice').val(str);
 							}
 						});
 					}
@@ -322,10 +325,13 @@ function modalHandler(mName) {
 				setTimeout(function () {
 					ItemList.forEach(element => {
 						iiiif = element.itemID;
+						var str = element.unit_price;
+						// str = str.replace('.00', '');
+						// str = str.replace(',', '');
 						var li_element = `<div id="id` + element.itemID + `" class="mini_card">
-											<img class="itImg" src="img/item.png" alt="">
+											<img class="itImg" src=" ` + element.item_img + ` " alt="">
 											<span class="itName"> ` + element.Item_name + ` </span>
-											<span class="itPrice"> ` + element.unit_price + ` </span>
+											<span class="itPrice"> ` + str + ` </span>
 											<img class="itEdit" src="images/editcon.png">
 										</div>`;
 										

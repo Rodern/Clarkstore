@@ -213,6 +213,8 @@ div.item_view {
 
 .item_view .mini_card img.itImg {
     width: 90px;
+    max-width: 90px;
+    max-width: 65px;
     margin: auto;
     shape-rendering: optimizeSpeed;
 }
