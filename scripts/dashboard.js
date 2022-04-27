@@ -186,7 +186,7 @@ $('.grid').on('click', function (e) {
 	if (item_id == 'enterSales') {
 		modalHandler('rec');
 	} else if (item_id == 'addItems') {
-		modalHandler('rec');
+		modalHandler('add');
 	} else if (item_id == 'viewItems') {
 		modalHandler('view');
 	} else if (item_id == 'category') {
@@ -371,7 +371,19 @@ function modalHandler(mName) {
 				})
 			}
 		});
-	} 
+	}
+
+	if(mName == 'add'){
+		h_name = 'Add Items'
+		var request = $.ajax({
+			url: 'routes/modals/add_modal.html',
+			success: function () {
+				modalView = request.responseText;
+				modalCaller();
+				
+			}
+		});
+	}
 
 	function modalCaller() {
 		var modalDom = `
@@ -397,9 +409,9 @@ function modalHandler(mName) {
 			})
 		});
 	}
-			$('div.added table tr:nth-child(even)').css({
-				'background-color': '#f2f2f2'
-			})
+	$('div.added table tr:nth-child(even)').css({
+		'background-color': '#f2f2f2'
+	})
 }
 
 function reset_es() {
