@@ -190,7 +190,7 @@ $('.grid').on('click', function (e) {
 	} else if (item_id == 'viewItems') {
 		modalHandler('view');
 	} else if (item_id == 'category') {
-		modalHandler('rec');
+		modalHandler('cat');
 	} else if (item_id == '') {
 		modalHandler('stock');
 	}
@@ -210,19 +210,11 @@ function modalHandler(mName) {
 				var addList = $('.addedlisttable');
 				ItemList.forEach(element => {
 					var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
-					// var li_element = `<tr class"Ldata" id="id_ ` + element.itemID + ` ">
-					// 				<td class="Ldata1" id="iid"> ` + element.itemID + ` </td>
-					// 				<td class="Ldata2" id="iname"> ` + element.Item_name + ` </td>
-					// 				<td class="Ldata3" id="itype"> ` + element.item_type + ` </td>
-					// 				<td class="Ldata4" id="iprice"> ` + element.unit_price + ` </td>
-					// 				<td class="Ldata5" id="istock"> ` + element.in_stock + ` </td>
-					// 			<tr>`;
 					$(option).appendTo(item_list);
-					// $(li_element).appendTo(addList);
 				});
 				$('#itname').change(function () {
-					var btn = $('.btn_add').text();
-					if (btn != "Update"){
+					/* var btn = $('.btn_add').text();
+					if (btn != "Update"){ */
 						var name = $('#itname').val().toString();
 						if(name == '' || name == null){
 
@@ -240,73 +232,89 @@ function modalHandler(mName) {
 								$('#itprice').val(str);
 							}
 						});
-					}
+					//}
 				})
 				var minimum_qty = 1;
 				$('#it_qty').change(function () {
 					var qty = $('#it_qty').val();
 					var utp = $('#itprice').val();
 					var name = $('#itname').val().toString();
-					// GlobalData.forEach(element => {
-					// 	var str = element.Item_name + ' (' + element.item_type + ')';
-					// 	if (str == name) {
-					// 		//minimum_qty = element.mim_qty;
-					// 	}
-					// });
 					var amt = $('#itamount').val((qty/1)*(utp/1));
 				})
+
 				$('.resetbtn').on('click', function(){
+					sale = new SalesItem();
 					reset_es();
-				});var uid = '';
+				});
+				
+				var uid = '';
 				$('.btn_add').on('click', function clickAdd(e){
-					//var tid = (new Date()).getTime();
+					var sale = new SalesItem();
+					sale.item_name = TrimSpace($('#itname').val());
+					sale.quantity = TrimSpace($('#it_qty').val());
+					sale.amount = TrimSpace($('#itamount').val());
+					sale.unit_price = TrimSpace($('#itprice').val());
+					sale.date = $('#itdate').val();
+
+					ItemList.forEach(element => {
+						var str = element.Item_name + ' (' + element.item_type + ')';
+						if (str == sale.item_name) {
+							sale.itemID = element.itemID;
+						}
+					});
 					
-					var name = $('#itname').val();
-					var qty = $('#it_qty').val();
-					var amt = $('#itamount').val();
-					var dt = new Date(); dt = $('#itdate').val();
-					iiiif = dt;
-					var ut = $('#itprice').val();
-					if(name == '' || qty == '' || dt == ''){
-						popUpBox('warn', 'Field(s) are empty! Please check again.');
-						$(globalAlertConfirm).addClass('closeInError');
-						$('.closeInError').on('click', function () { 
-							$(globalAlertConfirm).removeClass('closeInError');
-							clearPopUpBox();
-						});
+					if(sale.item_name == '' || sale.quantity == '' || sale.date == ''){
+						WarnEmptyFields();
 					} else {
 						if(e.target.id == "btntolist"){
 							if(uid != ''){
 								$('#tid' + uid).remove()
 							}
-							var tid = (new Date()).getTime();
-							var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-							var trItem = `<tr class="Ldata" id="tid` + (new Date()).getTime() + `">
-									<td class="Ldata1" id="tID">` + (new Date()).getTime() + `</td>
-									<td class="Ldata2 tName">` + name + `</td>
-									<td class="Ldata3 tQty">` + qty + `</td>
-									<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + amt + `</td>
-									<td class="Ldata5 tDate">` + dt + `</td>
+							var trItem = `<tr class="Ldata" id="tid` + sale.saleID + `">
+									<td class="Ldata1" id="tID">` + sale.itemID + `</td>
+									<td class="Ldata2 tName">` + sale.item_name + `</td>
+									<td class="Ldata3 tQty">` + sale.quantity + `</td>
+									<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + sale.amount + `</td>
+									<td class="Ldata5 tDate">` + sale.date + `</td>
 									<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
 								</tr>`;
 
 							$(trItem).appendTo(addList);
+							TempSalesList.push(sale);
+
 							$('.itDel').on('click', function(e) {
 								var did = e.target.parentElement.parentElement.id;
 								$('#' + did).remove();
+								var i = 0;
+								TempSalesList.forEach(element => {
+									if (element.saleID == did.substring(3)) {
+										TempSalesList.splice(i, 1);
+										return;
+									}
+									i += 1;
+								});
 							});
-							$('#tid' + tid).on('click', function(e){
+
+							$('#tid' + sale.saleID).on('click', function(e){
 								if (e.target.className != "itDel"){
 									uid = e.target.parentElement.id.substring(3);
-									name = $('#itname').val($('#tid' + uid + ' .Ldata2').text());
-									qty = $('#it_qty').val($('#tid' + uid + ' .Ldata3').text());
-									amt = $('#itamount').val($('#tid' + uid + ' .Ldata4').text().substring(4));
-									dt = $('#itdate').val($('#tid' + uid + ' .Ldata5').text());
+									TempSalesList.forEach(element => {
+										if (element.saleID != uid) {
+											return;
+										}
+										_ = $('#itname').val(element.item_name);
+										_ = $('#it_qty').val(element.quantity);
+										_ = $('#itamount').val(element.amount);
+										_ = $('#itprice').val(element.unit_price);
+										_ = $('#itdate').val(element.date);
+									});
 									var btmmod = $('.btn_add');
 									btmmod.text('Update');
 								}
 							});
 
+
+							sale = new SalesItem();
 							reset_es();
 						}
 					}
@@ -380,7 +388,87 @@ function modalHandler(mName) {
 			success: function () {
 				modalView = request.responseText;
 				modalCaller();
+				setTimeout(function () { }, 300);
+				var cat_list = $('#category_list');
+				var addList = $('.addedlisttable');
+				CategoryList.forEach(element => {
+					var option = `<option value="` + element.catName + ` ">`;
+					$(option).appendTo(cat_list);
+				});
+
+				$('.resetbtn').on('click', function () {
+					item = new SalesItem();
+					reset_es();
+				});
 				
+				var uid = '';
+				$('.btn_add').on('click', function (e) {
+					var item = new Item();
+					item.item_name = TrimSpace($('#it-name').val());
+					item.item_type = TrimSpace($('#it-type').val());
+					item.unit_price = TrimSpace($('#it-price').val());
+					item.in_stock = TrimSpace($('#it-stock').val());
+					item.item_cat = TrimSpace($('#it-cat').val());
+					item.item_img = TrimSpace($('#it-img').val());
+					
+					if (item.item_name == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
+						WarnEmptyFields();
+					}  else {
+						if (e.target.id == "itemtolist") {
+							if (uid != '') {
+								$('#tid' + uid).remove()
+							}
+							
+							var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
+									<td class="Ldata1" id="tID">` + item.itemID + `</td>
+									<td class="Ldata2 tName">` + item.item_name + `</td>
+									<td class="Ldata3 tType">` + item.item_type + `</td>
+									<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
+									<td class="Ldata5 tStock">` + item.in_stock + `</td>
+									<td class="Ldata5 tCat">` + item.item_cat + `</td>
+									<td class="Ldata5 tImg">` + item.item_img + `</td>
+									<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
+								</tr>`;
+
+							$(trItem).appendTo(addList);
+							TempItemList.push(item);
+
+							$('.itDel').on('click', function (e) {
+								var did = e.target.parentElement.parentElement.id;
+								$('#' + did).remove();
+								var i = 0;
+								TempItemList.forEach(element => {
+									if (element.itemID == did.substring(3)) {
+										TempItemList.splice(i,1);
+										return;
+									}
+									i += 1;
+								});
+							});
+							$('#tid' + item.itemID).on('click', function (e) {
+								if (e.target.className != "itDel") {
+									uid = e.target.parentElement.id.substring(3);
+									TempItemList.forEach(element => {
+										if(element.itemID != uid){
+											return;
+										}
+										_ = $('#it-name').val(element.item_name);
+										_ = $('#it-type').val(element.item_type);
+										_ = $('#it-price').val(element.unit_price);
+										_ = $('#it-stock').val(element.in_stock);
+										_ = $('#it-cat').val(element.item_cat);
+										_ = $('#it-img').val(element.item_img);
+									});
+									var btmmod = $('.btn_add');
+									btmmod.text('Update');
+								}
+							});
+
+							item = new Item();
+							reset_es();
+						}
+					}
+				});
 			}
 		});
 	}
@@ -403,9 +491,31 @@ function modalHandler(mName) {
 				'display' : 'flex',
 				'flex-direction' : 'column'
 			});
-			$('.exitModal').on('click', function(){
-				$('.modalView').fadeOut(200);
-				$('.modalView').remove();
+
+			$('.exitModal').on('click', function () {
+				if (TempItemList.length <= 0 && TempSalesList <= 0) {
+					$('.modalView').fadeOut(200);
+					$('.modalView').remove();
+					CTL();
+					return
+				}
+
+				popUpBox('alert', 'You have unsaved items, do you want to exit this view without saving?');
+				$(globalAlertConfirm).addClass('confirmLogout');
+				$('.confirmLogout').on('click', function () {
+					$(globalAlertConfirm).removeClass('confirmLogout');
+					clearPopUpBox();
+					$('.modalView').fadeOut(200);
+					$('.modalView').remove();
+					CTL();
+				});
+
+				$(globalAlertCancel).addClass('cancel_logout');
+				$(globalAlertCancel).on('click', function () {
+					$(globalAlertConfirm).removeClass('confirmLogout');
+					$(globalAlertCancel).removeClass('cancel_logout');
+					clearPopUpBox();
+				});
 			})
 		});
 	}
@@ -415,13 +525,21 @@ function modalHandler(mName) {
 }
 
 function reset_es() {
-	var name = $('#itname').val('');
-	var qty = $('#it_qty').val('');
-	var amt = $('#itamount').val('');
-	var dt = $('#itdate').val('');
-	var ut = $('#itprice').val('');
+
+	_ = $('#itname').val('');
+	_ = $('#it_qty').val('');
+	_ = $('#itamount').val('');
+	_ = $('#itprice').val('');
+	_ = $('#itdate').val('');
+
+	_ = $('#it-name').val('');
+	_ = $('#it-type').val('');
+	_ = $('#it-price').val('');
+	_ = $('#it-stock').val('');
+	_ = $('#it-cat').val('');
+	_ = $('#it-img').val('');
 	uid = '';
 
 	var btmmod = $('.btn_add');
-	btmmod.text('Add Record');
+	btmmod.text('Add Item');
 }

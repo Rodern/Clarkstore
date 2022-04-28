@@ -2,27 +2,59 @@ let ItemList = new Array();
 let TempItemList = new Array();
 let SalesList = new Array();
 let TempSalesList = new Array();
+let CategoryList = new Array();
+
 class Item {
-    constructor(itemID, item_name, item_type, unit_price, in_stock, item_img) {
+    constructor(itemID = (new Date()).getTime(), item_name, item_type, unit_price, in_stock, item_cat, item_img) {
         this.itemID = itemID;
         this.item_name = item_name;
         this.item_type = item_type;
         this.unit_price = unit_price;
         this.in_stock = in_stock;
+        this.item_cat = item_cat;
         this.item_img = item_img;
     }
 }
 class SalesItem {
-    constructor(itemID, saleID, item_name, item_type, unit_price, quantity, amount, date) {
-        this.itemID = itemID;
+    constructor(saleID = (new Date()).getTime(), itemID, item_name, unit_price, quantity, amount, date) {
         this.saleID = saleID;
+        this.itemID = itemID;
         this.item_name = item_name;
-        this.item_type = item_type;
         this.unit_price = unit_price;
         this.quantity = quantity;
         this.amount = amount;
         this.date = date;
     }
+}
+
+class Category {
+    constructor(catList = catList.length, catName){
+        this.catID = catList;
+        this.catName = catName;
+        }
+}
+
+function TrimSpace(text,pos = 1) {
+    if(pos == -1)
+        return text.trimStart();
+    if(pos == 0)
+        return text.trimEnd();
+    if(pos == 1)
+        return text.trim();
+}
+
+function CTL() {
+    TempItemList = new Array();
+    TempSalesList = new Array();
+}
+
+function WarnEmptyFields(){
+    popUpBox('warn', 'Field(s) are empty! Please check again.');
+    $(globalAlertConfirm).addClass('closeInError');
+    $('.closeInError').on('click', function () {
+        $(globalAlertConfirm).removeClass('closeInError');
+        clearPopUpBox();
+    });
 }
 
 if ('serviceWorker' in navigator) {
