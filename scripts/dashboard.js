@@ -212,7 +212,7 @@ function modalHandler(mName) {
 					var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
 					$(option).appendTo(item_list);
 				});
-				$('#itname').change(function () {
+				$('#itname').keyup(function () {
 					/* var btn = $('.btn_add').text();
 					if (btn != "Update"){ */
 						var name = $('#itname').val().toString();
@@ -235,7 +235,7 @@ function modalHandler(mName) {
 					//}
 				})
 				var minimum_qty = 1;
-				$('#it_qty').change(function () {
+				$('#it_qty').keyup(function () {
 					var qty = $('#it_qty').val();
 					var utp = $('#itprice').val();
 					var name = $('#itname').val().toString();

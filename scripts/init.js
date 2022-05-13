@@ -34,7 +34,7 @@ class Category {
         }
 }
 
-function TrimSpace(text,pos = 1) {
+function TrimSpace(text,pos = 1,UP = false) {
     if(pos == -1)
         return text.trimStart();
     if(pos == 0)

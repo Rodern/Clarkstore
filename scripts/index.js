@@ -38,8 +38,8 @@ $(document).ready(function () {
     });
 
     function submitForm() {
-        var username = $('#inputUserName').val();
-        var password = $('#inputPassword').val();
+        var username = $('#inputUserName').val().toLowerCase();
+        var password = $('#inputPassword').val().toLowerCase();
         
         validateFormEntry(username, password);
 
