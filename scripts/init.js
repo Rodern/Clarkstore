@@ -57,6 +57,7 @@ function WarnEmptyFields(){
     });
 }
 
+
 if ('serviceWorker' in navigator) {
     try {
         navigator.serviceWorker.register('serviceWorker.js');
