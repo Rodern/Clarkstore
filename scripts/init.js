@@ -4,6 +4,10 @@ let SalesList = new Array();
 let TempSalesList = new Array();
 let CategoryList = new Array();
 
+function SetClose(e){
+    $('.empty_input').css({ left: e.currentTarget.offsetWidth + (e.currentTarget.offsetWidth/1.5), top: e.currentTarget.offsetHeight })
+}
+
 class Item {
     constructor(itemID = (new Date()).getTime(), item_name, item_type, unit_price, in_stock, item_cat, item_img) {
         this.itemID = itemID;
@@ -15,6 +19,7 @@ class Item {
         this.item_img = item_img;
     }
 }
+
 class SalesItem {
     constructor(saleID = (new Date()).getTime(), itemID, item_name, unit_price, quantity, amount, date) {
         this.saleID = saleID;
@@ -114,6 +119,13 @@ function load_Dock() {
         url: "routes/panels/dockPanel.html",
         success: function () {
             var dDom = $(dockDom.responseText).appendTo($('.main_content')).ready(function () {
+            });
+        }
+    });
+    var Footer = $.ajax({
+        url: "routes/footer.html",
+        success: function () {
+            var footerDom = $(Footer.responseText).appendTo($('#page_footer')).ready(function () {
             });
         }
     });

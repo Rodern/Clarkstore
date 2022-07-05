@@ -1,8 +1,10 @@
 $(document).ready(function () {
 
-    $('#inputUserName').on('click', function () {
+    $('#inputUserName').on('click', function (e) {
         if ($('#inputUserName').is(':focus')) {
             $('#inputError-0').html('');
+            console.log(e);
+            $('.empty_input').css({ left: e.currentTarget.offsetWidth + (e.currentTarget.offsetWidth/1.5), top: e.currentTarget.offsetHeight });
         }
     });
 

@@ -44,6 +44,8 @@ sign.atSign {
     color: rgb(94, 90, 90);
 }
 
+
+
 div#avatarBox {
     width: fit-content;
     height: auto;
@@ -85,6 +87,10 @@ form div.formSection {
     position: relative;
 }
 
+form div.formSection.LDiv{
+    margin-top: 20px;
+}
+
 form div.formSection label {
     color: rgb(43, 43, 43);
     font-size: 1em;
@@ -118,7 +124,7 @@ form div.formSection span#inputError-0, form div.formSection span#inputError-1 {
     font-size: 0.8rem;
 }
 
-form div.formSection button#login, .btn_add, .resetbtn {
+form div.formSection button#login, .btn_add, .resetbtn, button.btn_save {
     width: 60%;
     height: 30px;
     margin: auto;
