@@ -30,6 +30,3 @@ var welcomeDom = `<div id="welcomeView" class="welcomeView">
 			</div>
 		</div>`
 
-
-var globalAlertCancel = document.getElementById('cancelHandler');
-var globalAlertConfirm = document.getElementById('alertBtnHandler');

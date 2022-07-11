@@ -9,7 +9,7 @@ div.stackPanel {
 	top: 0%;
 	left: 0%;
 	border: 0px dashed;
-	z-index: 45;
+	z-index: 49;
 	box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
 	cursor: default;
 	margin-top: 40px;
@@ -150,7 +150,7 @@ div.stInfo h3 {
 
 div.stInfo span {
 	text-decoration: none;
-	font-family: 'Product Sans light';
+	font-family: 'Product Sans Light';
 	font-weight: lighter;
 	font-size: 0.9rem;
 	color: #ffffff;
@@ -234,6 +234,7 @@ div.stInfo span {
 }
 
 .dockPanel {
+	display: none;
 	max-width: -webkit-fill-available;
     left: 0%;
     right: 0%;
@@ -264,7 +265,6 @@ div.stInfo span {
 }
 
 .dockInfoTable tr th {
-	text-emphasis: none;
 	text-decoration: none;
 	font-weight: 500;
 	font-size: 1rem;
@@ -279,45 +279,4 @@ div.stInfo span {
 	padding: 2%;
 	text-decoration: none;
 	box-sizing: border-box;
-}
-
-div.fl-BtnCover{
-	background-color: rgba(255, 255, 255, 0);
-	z-index: 99999;
-	min-width: 60px;
-	min-height: 60px;
-	max-width: 60px;
-	max-height: 60px;
-	position: absolute;
-	bottom: 3%;
-	right: 3%;
-	padding: 0px;
-}
-
-div.fl-BtnCover a.fl-main{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0px;
-	border-radius: 50%;
-	background-color: green;
-	text-decoration: none;
-	padding: 12px;
-	min-width: -webkit-fill-available;
-	min-height: -webkit-fill-available;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	box-shadow: -0.3px 0px 3px 1.5px black;
-}
-
-div.fl-BtnCover a.fl-main:hover {
-	box-shadow: -0.3px 0px 4px 1.6px black;
-}
-
-img.fl-main-img{
-	height: -webkit-fill-available;
-	width: -webkit-fill-available;
-	display: inline-block;
-	margin: auto;
 }

@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-VariableFont_wdth\,wght.ttf') format('truetype');
+}
 div#welcomeView {
     box-sizing: border-box;
     display: flex;
@@ -8,8 +11,10 @@ div#welcomeView {
     min-width: 380px;
     max-width: 380px;
     height: fit-content;
+    height: -moz-fit-content;
     background-color: white;
     /* background-color: rgba(255, 255, 255, 0.63); */
+    -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
     border: none;
     border-radius: 15px;
@@ -27,7 +32,9 @@ div.viewNameSpace {
 }
 
 sign.atSign {
+    width: -moz-fit-content;
     width: fit-content;
+    width: -moz-fit-content;
     height: fit-content;
     color: green;
     padding: 0%;
@@ -35,7 +42,6 @@ sign.atSign {
     text-align: center;
     font-size: 50px;
     font-weight: bold;
-    font-family: 'Open Sans Regular';
 }
 
 .nameSpace {
@@ -48,6 +54,7 @@ sign.atSign {
 
 div#avatarBox {
     width: fit-content;
+    width: -moz-fit-content;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -94,7 +101,6 @@ form div.formSection.LDiv{
 form div.formSection label {
     color: rgb(43, 43, 43);
     font-size: 1em;
-    font-family: 'Open sans';
 }
 
 input:not(.browser-default) {
@@ -147,6 +153,5 @@ form div.formSection button#login:hover {
 }
 
 p.forgot_pass {
-    font-family: 'Open Sans';
     font-size: 0.76em;
 }

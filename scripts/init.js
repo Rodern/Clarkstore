@@ -1,11 +1,43 @@
+
+var globalAlertCancel = document.getElementById('cancelHandler');
+var globalAlertConfirm = document.getElementById('alertBtnHandler');
+
 let ItemList = new Array();
 let TempItemList = new Array();
 let SalesList = new Array();
 let TempSalesList = new Array();
 let CategoryList = new Array();
+var stWidth = false;
+
+function loadScript(id, url){
+    var script = document.createElement('script');
+    script.setAttribute("src", url);
+    script.setAttribute("id", id);
+    document.body.appendChild(script);
+}
+
+function removeScript(id){
+    $('#' + id).remove();
+}
 
 function SetClose(e){
     $('.empty_input').css({ left: e.currentTarget.offsetWidth + (e.currentTarget.offsetWidth/1.5), top: e.currentTarget.offsetHeight })
+}
+
+function stackCloseCaller() {
+    $('.stackPanel').animate({
+        width: "0px"
+    },
+        {
+            duration: 100,
+            easing: 'linear',
+            complete: function () {
+                $('.stackPanel').css({
+                    'display': '',
+                    'width': '250px'
+                });
+            }
+        })
 }
 
 class Item {
@@ -55,11 +87,6 @@ function CTL() {
 
 function WarnEmptyFields(){
     popUpBox('warn', 'Field(s) are empty! Please check again.');
-    $(globalAlertConfirm).addClass('closeInError');
-    $('.closeInError').on('click', function () {
-        $(globalAlertConfirm).removeClass('closeInError');
-        clearPopUpBox();
-    });
 }
 
 
@@ -79,6 +106,7 @@ function Loader() {
         url: "routes/header.html",
         success: function () {
             var hDom = $(headerDom.responseText).appendTo($('.page_header'));
+            $.getScript('scripts/header.js');
         }
     });
 
@@ -96,8 +124,9 @@ function Loader() {
             var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function(){
 
                 load_Dock();
-
-                $.getScript('scripts/dashboard.js');
+                load_Foot();
+                //$.getScript('scripts/dashboard.js');
+                loadScript("dsb", "scripts/dashboard.js");
                 $('.headerCaption').text('Explore');
                 //$.unload('scripts/dashboard.js');
             });
@@ -122,6 +151,9 @@ function load_Dock() {
             });
         }
     });
+}
+
+function load_Foot() {
     var Footer = $.ajax({
         url: "routes/footer.html",
         success: function () {
@@ -153,7 +185,10 @@ $(document).ready(function (){
 });
 
 
-function popUpBox(boxType, boxMsg) {
+function popUpBox(boxType, boxMsg, OKCN, cancelCN = "CN_Class", CallBack = function () {
+    $(globalAlertConfirm).removeClass(OKCN);
+    clearPopUpBox(); 
+}) {
     if (boxType == "done") {
         $('.typeImg').attr('src', 'images/done.png');
         $('.typeName').text("Done!");
@@ -168,29 +203,36 @@ function popUpBox(boxType, boxMsg) {
         $('.typeName').text("Warning!");
         $('.alertBody').text(boxMsg);
     }
-    $('.alertCover').fadeIn(200);
+    $('.alertCover').attr('tabindex', -1).focus(function(){
+        //console.log('hit');
+    });
+    $('.alertCover').on('keyup', function(e){
+        if (e.which === 13 && $('.alertCover').css('display') == 'flex'){
+            e.preventDefault();
+            CallBack();
+        }
+    })
+
+    $('.alertCover').fadeIn(150);
     $('.alertCover').css('display', 'flex');
+
+    $(globalAlertConfirm).addClass(OKCN);
+    $(globalAlertCancel).addClass(cancelCN);
+
+    $(globalAlertCancel).on('click', function () {
+        $(globalAlertConfirm).removeClass(OKCN);
+        $(globalAlertCancel).removeClass(cancelCN);
+        clearPopUpBox();
+    });
+
+    $(globalAlertConfirm).on('click', function () {
+        CallBack();
+        $(globalAlertConfirm).removeClass(OKCN);
+    });
 }
 
-function clearPopUpBox() {/* 
-    var reset = `<div class="alertBox">
-			<div class="infoHead">
-				<img src="" alt="Image" class="typeImg">
-				<h2 class="typeName"></h2>
-			</div> 
-			<div class="alertBody">
-				
-			</div>
-			<div class="alertOptions">
-				<button type="submit" class="alertCancel" id="cancelHandler">Cancel</button>
-				<button type="button" class="alertConfirm" id="alertBtnHandler">OK</button:button>
-			</div>
-		</div>`
-
-    $('.alertBox').remove();
-    var set = $(reset).appendTo($('.alertCover')); */
-
-    $('.alertCover').fadeOut(200, function() {
+function clearPopUpBox() {
+    $('.alertCover').fadeOut(150, function() {
         $('.typeImg').attr('src', '');
         $('.typeName').text("");
         $('.alertBody').text("");

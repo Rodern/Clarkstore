@@ -82,6 +82,10 @@ div.alertOptions button {
     margin-left: 2px;
 }
 
+div.alertOptions button{
+    border-radius: 2px;
+}
+
 div.alertOptions button.alertCancel {
     display: none;
     color: grey;

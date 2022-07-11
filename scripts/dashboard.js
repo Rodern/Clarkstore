@@ -1,140 +1,112 @@
-var stWidth = false;
-
 var iiiif;
-function stackCloseCaller() {
-	$('.stackPanel').animate({
-		width: "0px"
-	},
-		{
-			duration: 200,
-			easing: 'linear',
-			complete: function () {
-				$('.stackPanel').css({
-					'display': '',
-					'width': '250px'
-				});
-			}
-		})
+
+function logout_handler() {
+	localStorage.setItem("loggedIn", "false");
+	window.location.reload();
 }
 
-$(".headerMenu").on('click', function() {
-	if(stWidth == false){
-		stWidth = true;
-		$('.stackPanel').css({
-			'width': '0px',
-			'display': 'flex'
-		}).animate({
-			width: "250px"
-		},
-		{
-			duration: 200,
-			easing: 'linear'
-		});
-	} else {stackCloseCaller(); stWidth = false; }
+$('.panel_list li').on('click', function(e) {
+	var itemID = e.target.id || e.target.parentElement.id;
+
+	if(itemID != 'clickId_log') {
+		$('.panel_list li').removeClass('li_selected');
+
+		$('#' + itemID).addClass('li_selected')
+	}
+	$('.dockPanel').remove();
+	
 });
 
-	$('.exitPanel').on('click', function() {
-		stackCloseCaller();
-		stWidth = false;
-	});
-
-	function logout_handler() {
-		localStorage.setItem("loggedIn", "false");
-		window.location.reload();
-	}
-
-	$('.panel_list li').on('click', function(e) {
-		var itemID = e.target.id || e.target.parentElement.id;
-
-		if(itemID != 'clickId_log') {
-			$('.panel_list li').removeClass('li_selected');
-
-			$('#' + itemID).addClass('li_selected')
-		}
-
-		if (itemID == 'clickId_rec') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Explore');
-			var exploreDom = $.ajax({
-				url: "routes/views/exploreView.html",
-				success: function () {
-					var eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function () {
-						$.getScript('scripts/dashboard.js');
-						load_Dock();
-					});
-				}
+$('#clickId_rec').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Explore');
+	var exploreDom = "";
+	exploreDom = $.ajax({
+		url: "routes/views/exploreView.html",
+		success: function () {
+			var eDom = "";
+			eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function () {
+				//$.getScript('scripts/dashboard.js');
+				//removeScript("dsb");
+				//loadScript("dsb", "scripts/dashboard.js");
+				load_Dock();
 			});
-		} else if (itemID == 'clickId_dash') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Dash View');
-			var dashDom = $.ajax({
-				url: "routes/views/dashView.html",
-				success: function () {
-					var dsDom = $(dashDom.responseText).appendTo($('.main_content')).ready(function () {
-					});
-				}
-			});
-		} else if (itemID == 'clickId_db') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Database View');
-			var dbaseDom = $.ajax({
-				url: "routes/views/dbView.html",
-				success: function () {
-					var dbDom = $(dbaseDom.responseText).appendTo($('.main_content')).ready(function () {
-					});
-				}
-			});
-		} else if (itemID == 'clickId_bs') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Business Stats');
-			var bstatsDom = $.ajax({
-				url: "routes/views/statsView.html",
-				success: function () {
-					var dsDom = $(bstatsDom.responseText).appendTo($('.main_content')).ready(function () {
-					});
-				}
-			});
-		} else if (itemID == 'clickId_an') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Analytics');
-			var analyticsDom = $.ajax({
-				url: "routes/views/analyticsView.html",
-				success: function () {
-					var anDom = $(analyticsDom.responseText).appendTo($('.main_content')).ready(function () {
-					});
-				}
-			});
-		} else if (itemID == 'clickId_set') {
-			$('.main_content').html('');
-			$('.headerCaption').text('Settings');
-			var settingsDom = $.ajax({
-				url: "routes/views/settingsView.html",
-				success: function () {
-					var sDom = $(settingsDom.responseText).appendTo($('.main_content')).ready(function () {
-					});
-				}
-			});
-		} else if (itemID == 'clickId_log') {
-			popUpBox('alert', 'Are you sure you want to logout?');
-			$(globalAlertConfirm).addClass('confirmLogout');
-			$('.confirmLogout').on('click', function () {
-				$(globalAlertConfirm).removeClass('confirmLogout');
-				clearPopUpBox();
-				logout_handler();
-			});
-
-			$(globalAlertCancel).addClass('cancel_logout');
-			$(globalAlertCancel).on('click', function() {
-				$(globalAlertConfirm).removeClass('confirmLogout');
-				$(globalAlertCancel).removeClass('cancel_logout');
-				clearPopUpBox();
-			})
-			//logout_handler();
 		}
 	});
+});
+
+$('#clickId_dash').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Dash View');
+	var dashDom = $.ajax({
+		url: "routes/views/dashView.html",
+		success: function () {
+			var dsDom = $(dashDom.responseText).appendTo($('.main_content')).ready(function () {
+			});
+		}
+	});
+});
+
+$('#clickId_db').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Database View');
+	var dbaseDom = $.ajax({
+		url: "routes/views/dbView.html",
+		success: function () {
+			var dbDom = $(dbaseDom.responseText).appendTo($('.main_content')).ready(function () {
+			});
+		}
+	});
+});
+
+$('#clickId_bs').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Business Stats');
+	var bstatsDom = $.ajax({
+		url: "routes/views/statsView.html",
+		success: function () {
+			var dsDom = $(bstatsDom.responseText).appendTo($('.main_content')).ready(function () {
+			});
+		}
+	});
+});
+
+$('#clickId_an').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Analytics');
+	var analyticsDom = $.ajax({
+		url: "routes/views/analyticsView.html",
+		success: function () {
+			var anDom = $(analyticsDom.responseText).appendTo($('.main_content')).ready(function () {
+			});
+		}
+	});
+});
+
+$('#clickId_set').on('click', function () {
+	$('.main_content').html('');
+	$('.headerCaption').text('Settings');
+	var settingsDom = $.ajax({
+		url: "routes/views/settingsView.html",
+		success: function () {
+			var sDom = $(settingsDom.responseText).appendTo($('.main_content')).ready(function () {
+			});
+		}
+	});
+});
+
+$('#clickId_log').on('click', function () {
+	const LG_CallBack = function () {
+		clearPopUpBox();
+		logout_handler();
+	};
+
+	popUpBox('alert', 'Are you sure you want to logout?', 'confirmLogout', 'cancel_logout', LG_CallBack);
+});
 
 	$('.grid a').on('mouseover', function(e) {
 		var item_id = e.target.parentElement.id;
+		$(".dockPanel").fadeIn(100);
 
 		if (item_id == 'enterSales') {
 			dockInfoWrite('Enter Sales', 'This provides a form for you to enter your sales');
@@ -158,6 +130,7 @@ $(".headerMenu").on('click', function() {
 	});
 
 	$('.grid a').on('mouseleave', function() {
+		$(".dockPanel").fadeOut(100);
 		$('.dockPanel').html('');
 	})
 
@@ -179,27 +152,7 @@ $(".headerMenu").on('click', function() {
 	}
 
 
-
-$('.grid').on('click', function (e) {
-	var item_id = e.target.parentElement.id;
-
-	if (item_id == 'enterSales') {
-		modalHandler('rec');
-	} else if (item_id == 'addItems') {
-		modalHandler('add');
-	} else if (item_id == 'viewItems') {
-		modalHandler('view');
-	} else if (item_id == 'category') {
-		modalHandler('cat');
-	} else if (item_id == '') {
-		modalHandler('stock');
-	}
-});
-
-function modalHandler(mName) {
-	var modalView, h_name;
-
-	if(mName == 'rec') {
+	$('#enterSales').on('click', function(){
 		h_name = 'Record Sales'
 		var request = $.ajax({
 			url: 'routes/modals/rec_modal.html',
@@ -321,8 +274,9 @@ function modalHandler(mName) {
 				});
 			}
 		});
-	}
-	if (mName == 'view') {
+	});
+
+	$('#viewItems').on('click', function(){
 		h_name = 'View Items'
 		var request = $.ajax({
 			url: 'routes/modals/items_modal.html',
@@ -379,9 +333,9 @@ function modalHandler(mName) {
 				})
 			}
 		});
-	}
+	});
 
-	if(mName == 'add'){
+	$('#addItems').on('click', function(){
 		h_name = 'Add Items'
 		var request = $.ajax({
 			url: 'routes/modals/add_modal.html',
@@ -413,65 +367,65 @@ function modalHandler(mName) {
 					
 					if (item.item_name == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
 						WarnEmptyFields();
-					}  else {
-						if (e.target.id == "itemtolist") {
-							if (uid != '') {
-								$('#tid' + uid).remove()
-							}
-							
-							var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
-									<td class="Ldata1" id="tID">` + item.itemID + `</td>
-									<td class="Ldata2 tName">` + item.item_name + `</td>
-									<td class="Ldata3 tType">` + item.item_type + `</td>
-									<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
-									<td class="Ldata5 tStock">` + item.in_stock + `</td>
-									<td class="Ldata5 tCat">` + item.item_cat + `</td>
-									<td class="Ldata5 tImg">` + item.item_img + `</td>
-									<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
-								</tr>`;
+						return;
+					}
+					$("#itemtolist").on('click', function(){
+						if (uid != '') {
+							$('#tid' + uid).remove()
+						}
+						
+						var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
+								<td class="Ldata1" id="tID">` + item.itemID + `</td>
+								<td class="Ldata2 tName">` + item.item_name + `</td>
+								<td class="Ldata3 tType">` + item.item_type + `</td>
+								<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
+								<td class="Ldata5 tStock">` + item.in_stock + `</td>
+								<td class="Ldata5 tCat">` + item.item_cat + `</td>
+								<td class="Ldata5 tImg">` + item.item_img + `</td>
+								<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
+							</tr>`;
 
-							$(trItem).appendTo(addList);
-							TempItemList.push(item);
+						$(trItem).appendTo(addList);
+						TempItemList.push(item);
 
-							$('.itDel').on('click', function (e) {
-								var did = e.target.parentElement.parentElement.id;
-								$('#' + did).remove();
-								var i = 0;
+						$('.itDel').on('click', function (e) {
+							var did = e.target.parentElement.parentElement.id;
+							$('#' + did).remove();
+							var i = 0;
+							TempItemList.forEach(element => {
+								if (element.itemID == did.substring(3)) {
+									TempItemList.splice(i,1);
+									return;
+								}
+								i += 1;
+							});
+						});
+						$('#tid' + item.itemID).on('click', function (e) {
+							if (e.target.className != "itDel") {
+								uid = e.target.parentElement.id.substring(3);
 								TempItemList.forEach(element => {
-									if (element.itemID == did.substring(3)) {
-										TempItemList.splice(i,1);
+									if(element.itemID != uid){
 										return;
 									}
-									i += 1;
+									_ = $('#it-name').val(element.item_name);
+									_ = $('#it-type').val(element.item_type);
+									_ = $('#it-price').val(element.unit_price);
+									_ = $('#it-stock').val(element.in_stock);
+									_ = $('#it-cat').val(element.item_cat);
+									_ = $('#it-img').val(element.item_img);
 								});
-							});
-							$('#tid' + item.itemID).on('click', function (e) {
-								if (e.target.className != "itDel") {
-									uid = e.target.parentElement.id.substring(3);
-									TempItemList.forEach(element => {
-										if(element.itemID != uid){
-											return;
-										}
-										_ = $('#it-name').val(element.item_name);
-										_ = $('#it-type').val(element.item_type);
-										_ = $('#it-price').val(element.unit_price);
-										_ = $('#it-stock').val(element.in_stock);
-										_ = $('#it-cat').val(element.item_cat);
-										_ = $('#it-img').val(element.item_img);
-									});
-									var btmmod = $('.btn_add');
-									btmmod.text('Update');
-								}
-							});
+								var btmmod = $('.btn_add');
+								btmmod.text('Update');
+							}
+						});
 
-							item = new Item();
-							reset_es();
-						}
-					}
+						item = new Item();
+						reset_es();
+					});
 				});
 			}
 		});
-	}
+	});
 
 	function modalCaller() {
 		var modalDom = `
@@ -499,47 +453,48 @@ function modalHandler(mName) {
 					CTL();
 					return
 				}
-
-				popUpBox('alert', 'You have unsaved items, do you want to exit this view without saving?');
-				$(globalAlertConfirm).addClass('confirmLogout');
-				$('.confirmLogout').on('click', function () {
-					$(globalAlertConfirm).removeClass('confirmLogout');
+				function exitCallback() {
 					clearPopUpBox();
 					$('.modalView').fadeOut(200);
 					$('.modalView').remove();
 					CTL();
-				});
-
-				$(globalAlertCancel).addClass('cancel_logout');
-				$(globalAlertCancel).on('click', function () {
-					$(globalAlertConfirm).removeClass('confirmLogout');
-					$(globalAlertCancel).removeClass('cancel_logout');
-					clearPopUpBox();
-				});
-			})
+				}
+				popUpBox('alert', 'You have unsaved items, do you want to exit this view without saving?', 'closeModal', 'cancelCloseModal', exitCallback);
+				
+			});
 		});
 	}
 	$('div.added table tr:nth-child(even)').css({
 		'background-color': '#f2f2f2'
-	})
-}
+	});
 
 function reset_es() {
 
-	_ = $('#itname').val('');
-	_ = $('#it_qty').val('');
-	_ = $('#itamount').val('');
-	_ = $('#itprice').val('');
-	_ = $('#itdate').val('');
+	_ = $('#itname, #it_qty, #itamount, #itprice, #itdate').val('');
 
-	_ = $('#it-name').val('');
-	_ = $('#it-type').val('');
-	_ = $('#it-price').val('');
-	_ = $('#it-stock').val('');
-	_ = $('#it-cat').val('');
-	_ = $('#it-img').val('');
+	_ = $('#it-name, #it-type, #it-price, #it-stock, #it-cat, #it-img').val('');
 	uid = '';
 
 	var btmmod = $('.btn_add');
 	btmmod.text('Add Item');
 }
+
+$('.fl-BtnCover').on('mouseover', () => {
+	$('.fl-BtnCover').animate({
+		height: '180px'
+	},
+		{
+			duration: 100,
+			easing: 'linear'
+		});
+})
+
+$('.fl-BtnCover').on('mouseleave', () => {
+	$('.fl-BtnCover').animate({
+		height: '64px'
+	},
+		{
+			duration: 100,
+			easing: 'linear'
+		});
+})

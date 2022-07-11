@@ -27,7 +27,6 @@ $(document).ready(function () {
     $('#inputUserName').keyup(function (event) {
         if (event.which === 13) {
             event.preventDefault();
-            // submitForm();
             $('#inputPassword').focus();
         }
     });
@@ -62,20 +61,10 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    popUpBox('warn', 'Wrong password! Please check again.');
-                    $(globalAlertConfirm).addClass('closeInError');
-                    $('.closeInError').on('click', function () {
-                        $(globalAlertConfirm).removeClass('closeInError');
-                        clearPopUpBox();
-                    });
+                    popUpBox('warn', 'Wrong password! Please check again.', 'closeInError');
                 }
             } else {
-                popUpBox('warn', 'Wrong username! Please check again.');
-                $(globalAlertConfirm).addClass('closeInError');
-                $('.closeInError').on('click', function () {
-                    $(globalAlertConfirm).removeClass('closeInError');
-                    clearPopUpBox();
-                });
+                popUpBox('warn', 'Wrong username! Please check again.', 'closeInError');
             }
         }
     }
