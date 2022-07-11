@@ -481,7 +481,7 @@ function reset_es() {
 
 $('.fl-BtnCover').on('mouseover', () => {
 	$('.fl-BtnCover').animate({
-		height: '180px'
+		height: '185px'
 	},
 		{
 			duration: 100,
@@ -491,7 +491,7 @@ $('.fl-BtnCover').on('mouseover', () => {
 
 $('.fl-BtnCover').on('mouseleave', () => {
 	$('.fl-BtnCover').animate({
-		height: '65px'
+		height: '70px'
 	},
 		{
 			duration: 100,
