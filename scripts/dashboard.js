@@ -491,7 +491,7 @@ $('.fl-BtnCover').on('mouseover', () => {
 
 $('.fl-BtnCover').on('mouseleave', () => {
 	$('.fl-BtnCover').animate({
-		height: '64px'
+		height: '65px'
 	},
 		{
 			duration: 100,

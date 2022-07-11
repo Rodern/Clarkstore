@@ -14,6 +14,7 @@ div.stackPanel {
 	cursor: default;
 	margin-top: 40px;
 	backdrop-filter: blur(9px);
+	-webkit-backdrop-filter: blur(9px);
 	overflow: hidden;
 	overflow-y: auto;
 }
