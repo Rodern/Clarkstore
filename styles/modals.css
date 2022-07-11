@@ -57,9 +57,9 @@ div.fl-BtnCover {
     flex-direction: column;
     z-index: 48;
     width: 80px;
-    height: 75px;
+    height: 72px;
     min-width: 65px;
-    min-height: 75px;
+    min-height: 72px;
     position: absolute;
     bottom: 6%;
     right: 3%;
@@ -101,7 +101,7 @@ div.fl-BtnCover a.fl-sub-0 {
     max-width: 50px;
     max-height: 50px;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 11%;
 }
 
 div.fl-BtnCover a.fl-sub-1 {
@@ -111,7 +111,7 @@ div.fl-BtnCover a.fl-sub-1 {
     max-width: 40px;
     max-height: 40px;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 11%;
 }
 
 div.fl-BtnCover a.fl-main:hover,
