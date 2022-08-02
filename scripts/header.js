@@ -1,6 +1,14 @@
 $(".headerMenu").on('click', function () {
+    OpenStack();
+});
+
+function OpenStack(){
     if (stWidth == false) {
-        stWidth = true; console.log(25);
+        stWidth = true;
+        $('.st-cover').css({
+            'display': 'block',
+            'width': '250px'
+        });
         $('.stackPanel').css({
             'width': '0px',
             'display': 'flex'
@@ -11,11 +19,15 @@ $(".headerMenu").on('click', function () {
                 duration: 100,
                 easing: 'linear'
             });
-    } else if (stWidth == true) { console.log(23); stackCloseCaller(); stWidth = false; }
-});
+    } else if (stWidth == true) {stackCloseCaller(); stWidth = false; }
+}
 
-$('.exitPanel').on('click', function () {
+$('#exitPanel').on('click', function () {
     stackCloseCaller();
     stWidth = false;
 });
 
+/* $('.st-cover').on('mouseup', function(){
+    stackCloseCaller();
+    stWidth = false;
+}); */

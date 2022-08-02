@@ -7,7 +7,6 @@ $(document).ready(function () {
             $('.empty_input').css({ left: e.currentTarget.offsetWidth + (e.currentTarget.offsetWidth/1.5), top: e.currentTarget.offsetHeight });
         }
     });
-
     $('#inputPassword').on('click', function () {
         if ($('#inputPassword').is(':focus')) {
             $('#inputError-1').html('');

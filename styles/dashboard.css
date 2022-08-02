@@ -1,3 +1,16 @@
+div.st-cover {
+	display: block;
+	background-color: rgba(0, 0, 0, 0);
+	width: 250px;
+	height: -webkit-fill-available;
+	overflow: hidden;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	margin-top: 40px;
+	z-index: 48;
+}
+
 div.stackPanel {
 	display: flex;
 	flex-direction: column;
@@ -12,7 +25,6 @@ div.stackPanel {
 	z-index: 49;
 	box-shadow: 1px 0px 19px 0px rgba(41, 41, 41, 0.349);
 	cursor: default;
-	margin-top: 40px;
 	backdrop-filter: blur(9px);
 	-webkit-backdrop-filter: blur(9px);
 	overflow: hidden;
@@ -37,23 +49,24 @@ div.stackPanel {
 }
 
 .panelHeader .exitPanel {
+	display: none;
+}
+.exitPanel {
 	background-color: rgb(78, 78, 78);
 	width: 30px;
 	height: 30px;
 	border: 1px none;
 	box-sizing: border-box;
 	position: absolute; 
-	right: 0px;
-	margin-right: 1%;
-	margin-top: 1px;
+	right: 2px;
+	top: 2px;
 	padding: 0px;
 	border-radius: 5px;
-	display: none;
 }
 
-.panelHeader .exitPanel:hover {
+.exitPanel:hover {
 	transition: 0.12s;
-	background-color: rgba(240, 6, 6, 0.479);
+	background-color: red;
 }
 
 .exitPanel img {

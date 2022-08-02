@@ -25,6 +25,7 @@
     background-color: #3b3b3b;
     margin: 0px;
     margin-right: 0px;
+    margin-bottom: 1px;
     box-shadow: 0px 2px 8px 1px rgba(80, 80, 80, 0.493);
 }
 
@@ -71,18 +72,19 @@ div.fl-BtnCover {
 }
 
 div.fl-BtnCover a.fl{
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     background-color: green;
     text-decoration: none;
-    padding: 12px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     box-shadow: -0.3px 0px 3px 1.5px rgba(0, 0, 0, 0.432);
+    align-content: space-around;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 div.fl-BtnCover a.fl-main {
@@ -121,10 +123,11 @@ div.fl-BtnCover a.fl-sub-1:hover {
 }
 
 img.fl-main-img {
+    position: relative;
     height: 35px;
     width: 35px;
-    display: inline-block;
-    margin: auto;
+    display: block;
+    align-self: auto;
 }
 
 div.fl-BtnCover a.fl-sub-0 img.fl-main-img {
@@ -135,4 +138,118 @@ div.fl-BtnCover a.fl-sub-0 img.fl-main-img {
 div.fl-BtnCover a.fl-sub-1 img.fl-main-img {
     height: 25px;
     width: 25px;
+}
+
+.detailModalCover, .catModalDetailCover {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: aquamarine;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    background: rgba(255, 255, 255, 0.075);
+    backdrop-filter: blur(5px);
+    z-index: 50;
+    box-sizing: content-box;
+    overflow-x: auto;
+    justify-content: center;
+    align-items: center;
+    z-index: 51;
+}
+
+.detailModalCover .detailBox, .catDetailBox {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    width: 350px;
+    height: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 1%;
+    border: 1px solid rgba(160, 160, 160, 0.342);
+        box-shadow: 0px 0px 6px 2px rgba(190, 190, 190, 0.83);
+    
+}
+
+#exitDetail {
+    top: 3px;
+    right: 5px
+}
+
+.detailBox img.it_avatar {
+    width: 25%;
+    margin-inline: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.detailBox table {
+    width: 100%;
+}
+
+.detailBox table tr {
+    margin-bottom: 1%;
+    border-bottom: 1px solid gray;
+}
+
+.detailBox table tr th {
+    text-align: left;
+}
+
+.detailBox table tr td {
+    text-align: right;
+}
+
+.detailBox .BtnSection {
+    margin-top: auto;
+    margin-bottom: 3%;
+}
+
+.catModalDetailCover {
+    backdrop-filter: blur(1px);
+}
+
+.catModalDetailCover div.catDetailBox {
+    width: 100%;
+    height: 120px;
+    background-color: white;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+div.catDetailBox .d-wrapper {
+    margin: 2px 0px;
+    margin-inline: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+div.catDetailBox .d-wrapper {
+    border-bottom: 1px solid gray;
+}
+
+div.catDetailBox .d-wrapper h5 {
+    margin: 0%;
+    padding: 0%;
+}
+
+div.catDetailBox .d-wrapper span{
+    justify-self: end;
+    margin-left: auto;
+}
+
+div.catDetailBox .headerCaption {
+    text-align: center;
+    color: #3b3b3b;
+    box-shadow: none;
+    font-size: 1rem;
+}
+
+div.catDetailBox .BtnSection * {
+    background-color: rgb(255, 0, 0);
 }

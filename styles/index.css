@@ -36,7 +36,6 @@ html, body {
 	font-family: 'Open Sans';
 	font-style: normal;
 	letter-spacing: 01px;
-	/* background-image: url(../img/31172_uhd.jpg); */
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-blend-mode: darken;
@@ -111,4 +110,37 @@ div.headerMenu img {
 
 .headerCaption-0:first-of-type {
     color: rgb(153, 255, 153);
+}
+
+.BtnSection {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: row;
+}
+
+.gs-btn {
+	width: fit-content;
+	margin: auto;
+	font-family: 'Open sans';
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	border: 1px solid slategrey;
+	border-radius: 5px;
+	background-color: green;
+	padding: 3.5px 52.5px;
+}
+
+.gs-btn:hover {
+	background-color: rgb(0, 99, 0);
+	box-shadow: 0px 0px 5px 1px rgba(179, 179, 179, 0.644);
+}
+
+.gs-btn:focus {
+	color: black;
+	background-color: rgb(0, 99, 0);
+	border: 0.1em solid rgba(155, 155, 155, 0.651);
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.644);
 }

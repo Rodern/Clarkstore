@@ -2,6 +2,43 @@
 var globalAlertCancel = document.getElementById('cancelHandler');
 var globalAlertConfirm = document.getElementById('alertBtnHandler');
 
+
+class Item {
+    constructor(itemID = (new Date()).getTime(), item_name, item_type, unit_price, in_stock, item_cat, item_img) {
+        this.itemID = itemID;
+        this.item_name = item_name;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.in_stock = in_stock;
+        this.item_cat = item_cat;
+        this.item_img = item_img;
+    }
+}
+
+class SalesItem {
+    constructor(saleID = (new Date()).getTime(), itemID, item_name, unit_price, quantity, amount, date) {
+        this.saleID = saleID;
+        this.itemID = itemID;
+        this.item_name = item_name;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.date = date;
+    }
+}
+
+class Category {
+    constructor(catID, catName, NoP = 0){
+        this.catID = catID;
+        this.catName = catName;
+        this.NoP = NoP;
+    }
+}
+
+const _item = new Item();
+const _sales = new SalesItem();
+const _category = new Category();
+
 let ItemList = new Array();
 let TempItemList = new Array();
 let SalesList = new Array();
@@ -36,39 +73,12 @@ function stackCloseCaller() {
                     'display': '',
                     'width': '250px'
                 });
+                $('.st-cover').css({
+                    'display': '',
+                    'width': '250px'
+                });
             }
         })
-}
-
-class Item {
-    constructor(itemID = (new Date()).getTime(), item_name, item_type, unit_price, in_stock, item_cat, item_img) {
-        this.itemID = itemID;
-        this.item_name = item_name;
-        this.item_type = item_type;
-        this.unit_price = unit_price;
-        this.in_stock = in_stock;
-        this.item_cat = item_cat;
-        this.item_img = item_img;
-    }
-}
-
-class SalesItem {
-    constructor(saleID = (new Date()).getTime(), itemID, item_name, unit_price, quantity, amount, date) {
-        this.saleID = saleID;
-        this.itemID = itemID;
-        this.item_name = item_name;
-        this.unit_price = unit_price;
-        this.quantity = quantity;
-        this.amount = amount;
-        this.date = date;
-    }
-}
-
-class Category {
-    constructor(catList = catList.length, catName){
-        this.catID = catList;
-        this.catName = catName;
-        }
 }
 
 function TrimSpace(text,pos = 1,UP = false) {
@@ -99,6 +109,7 @@ if ('serviceWorker' in navigator) {
     }
 
 }
+
 function Loader() {
     $('body').css('background-image', "url('images/bg1.jpg')");
     $('#main_content').css('background-color', "rgba(255, 255, 255, 0.932)"); // "rgba(0, 0, 0, 0.281)");
@@ -138,6 +149,13 @@ function Loader() {
         success: function () {
             //console.log(JsonData.responseText);
             ItemList = JSON.parse(JsonData.responseText);
+        }
+    });
+
+    let CatData = $.ajax({
+        url: "database/categories.json",
+        success: function () {
+            CategoryList = JSON.parse(CatData.responseText);
         }
     });
 

@@ -104,369 +104,478 @@ $('#clickId_log').on('click', function () {
 	popUpBox('alert', 'Are you sure you want to logout?', 'confirmLogout', 'cancel_logout', LG_CallBack);
 });
 
-	$('.grid a').on('mouseover', function(e) {
-		var item_id = e.target.parentElement.id;
-		$(".dockPanel").fadeIn(100);
+$('.grid a').on('mouseover', function(e) {
+	var item_id = e.target.parentElement.id;
+	$(".dockPanel").fadeIn(100);
 
-		if (item_id == 'enterSales') {
-			dockInfoWrite('Enter Sales', 'This provides a form for you to enter your sales');
-			 
-		} else if (item_id == 'addItems') {
-			dockInfoWrite('Add Items', 'An available form view for you to add items for sale');
-			 
-		} else if (item_id == 'viewItems') {
-			dockInfoWrite('View Items', 'List all items, sort, manage them ');
-			 
-		} else if (item_id == 'category') {
-			dockInfoWrite('Categories', 'Add, list and manage categories of the items');
-			 
-		} else if (item_id == '') {
-			dockInfoWrite('Blank', 'More blank');
-			 
-		} else if (item_id == 'warehouse') {
-			dockInfoWrite('Stock Management', 'Manage items stock easily this view');
-			 
-		}
-	});
-
-	$('.grid a').on('mouseleave', function() {
-		$(".dockPanel").fadeOut(100);
-		$('.dockPanel').html('');
-	})
-
-	function dockInfoWrite(name, desc) {
-		var dom = `
-				<table class="dockInfoTable">
-					<tr>
-						<th>Name:</th>
-						<td>` + name + `</td>
-					</tr>
-
-					<tr>
-						<th>Description:</th>
-						<td>` + desc + `</td>
-					</tr>
-				</table>
-			`
-		$('.dockPanel').html(dom);
+	if (item_id == 'enterSales') {
+		dockInfoWrite('Enter Sales', 'This provides a form for you to enter your sales');
+		
+	} else if (item_id == 'addItems') {
+		dockInfoWrite('Add Items', 'An available form view for you to add items for sale');
+		
+	} else if (item_id == 'viewItems') {
+		dockInfoWrite('View Items', 'List all items, sort, manage them ');
+		
+	} else if (item_id == 'category') {
+		dockInfoWrite('Categories', 'Add, list and manage categories of the items');
+		
+	} else if (item_id == '') {
+		dockInfoWrite('Blank', 'More blank');
+		
+	} else if (item_id == 'warehouse') {
+		dockInfoWrite('Stock Management', 'Manage items stock easily this view');
+		
 	}
+});
+
+$('.grid a').on('mouseleave', function() {
+	$(".dockPanel").fadeOut(100);
+	$('.dockPanel').html('');
+})
+
+function dockInfoWrite(name, desc) {
+	var dom = `
+			<table class="dockInfoTable">
+				<tr>
+					<th>Name:</th>
+					<td>` + name + `</td>
+				</tr>
+
+				<tr>
+					<th>Description:</th>
+					<td>` + desc + `</td>
+				</tr>
+			</table>
+		`
+	$('.dockPanel').html(dom);
+}
 
 
-	$('#enterSales').on('click', function(){
-		h_name = 'Record Sales'
-		var request = $.ajax({
-			url: 'routes/modals/rec_modal.html',
-			success: function () {
-				modalView = request.responseText;
-				modalCaller();
-				var item_list = $('#item_list');
-				var addList = $('.addedlisttable');
-				ItemList.forEach(element => {
-					var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
-					$(option).appendTo(item_list);
-				});
-				$('#itname').keyup(function () {
-					/* var btn = $('.btn_add').text();
-					if (btn != "Update"){ */
-						var name = $('#itname').val().toString();
-						if(name == '' || name == null){
-
-							var qty = $('#it_qty').val('');
-							var utp = $('#itprice').val('');
-							var name = $('#itname').val('');
-							var amt = $('#itamount').val('');
-						}
-						ItemList.forEach(element => {
-							var str = element.Item_name + ' (' + element.item_type + ')';
-							if (str == name) {
-								var str = element.unit_price.substring(4);
-								str = str.replace('.00', '');
-								str = str.replace(',', '');
-								$('#itprice').val(str);
-							}
-						});
-					//}
-				})
-				var minimum_qty = 1;
-				$('#it_qty').keyup(function () {
-					var qty = $('#it_qty').val();
-					var utp = $('#itprice').val();
+$('#enterSales').on('click', function(){
+	h_name = 'Record Sales'
+	const request = $.ajax({
+		url: 'routes/modals/rec_modal.html',
+		success: function (content) {
+			modalCaller(content);
+			var item_list = $('#item_list');
+			var addList = $('.addedlisttable');
+			ItemList.forEach(element => {
+				var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
+				$(option).appendTo(item_list);
+			});
+			$('#itname').keyup(function () {
+				/* var btn = $('.btn_add').text();
+				if (btn != "Update"){ */
 					var name = $('#itname').val().toString();
-					var amt = $('#itamount').val((qty/1)*(utp/1));
-				})
+					if(name == '' || name == null){
 
-				$('.resetbtn').on('click', function(){
-					sale = new SalesItem();
-					reset_es();
-				});
-				
-				var uid = '';
-				$('.btn_add').on('click', function clickAdd(e){
-					var sale = new SalesItem();
-					sale.item_name = TrimSpace($('#itname').val());
-					sale.quantity = TrimSpace($('#it_qty').val());
-					sale.amount = TrimSpace($('#itamount').val());
-					sale.unit_price = TrimSpace($('#itprice').val());
-					sale.date = $('#itdate').val();
-
+						var qty = $('#it_qty').val('');
+						var utp = $('#itprice').val('');
+						var name = $('#itname').val('');
+						var amt = $('#itamount').val('');
+					}
 					ItemList.forEach(element => {
 						var str = element.Item_name + ' (' + element.item_type + ')';
-						if (str == sale.item_name) {
-							sale.itemID = element.itemID;
+						if (str == name) {
+							var str = element.unit_price.substring(4);
+							str = str.replace('.00', '');
+							str = str.replace(',', '');
+							$('#itprice').val(str);
 						}
 					});
-					
-					if(sale.item_name == '' || sale.quantity == '' || sale.date == ''){
-						WarnEmptyFields();
-					} else {
-						if(e.target.id == "btntolist"){
-							if(uid != ''){
-								$('#tid' + uid).remove()
-							}
-							var trItem = `<tr class="Ldata" id="tid` + sale.saleID + `">
-									<td class="Ldata1" id="tID">` + sale.itemID + `</td>
-									<td class="Ldata2 tName">` + sale.item_name + `</td>
-									<td class="Ldata3 tQty">` + sale.quantity + `</td>
-									<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + sale.amount + `</td>
-									<td class="Ldata5 tDate">` + sale.date + `</td>
-									<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
-								</tr>`;
+				//}
+			})
+			var minimum_qty = 1;
+			$('#it_qty').keyup(function () {
+				var qty = $('#it_qty').val();
+				var utp = $('#itprice').val();
+				var name = $('#itname').val().toString();
+				var amt = $('#itamount').val((qty/1)*(utp/1));
+			})
 
-							$(trItem).appendTo(addList);
-							TempSalesList.push(sale);
+			$('.resetbtn').on('click', function(){
+				sale = new SalesItem();
+				reset_es();
+			});
+			
+			var uid = '';
+			$('.btn_add').on('click', function clickAdd(e){
+				var sale = new SalesItem();
+				sale.item_name = TrimSpace($('#itname').val());
+				sale.quantity = TrimSpace($('#it_qty').val());
+				sale.amount = TrimSpace($('#itamount').val());
+				sale.unit_price = TrimSpace($('#itprice').val());
+				sale.date = $('#itdate').val();
 
-							$('.itDel').on('click', function(e) {
-								var did = e.target.parentElement.parentElement.id;
-								$('#' + did).remove();
-								var i = 0;
-								TempSalesList.forEach(element => {
-									if (element.saleID == did.substring(3)) {
-										TempSalesList.splice(i, 1);
-										return;
-									}
-									i += 1;
-								});
-							});
-
-							$('#tid' + sale.saleID).on('click', function(e){
-								if (e.target.className != "itDel"){
-									uid = e.target.parentElement.id.substring(3);
-									TempSalesList.forEach(element => {
-										if (element.saleID != uid) {
-											return;
-										}
-										_ = $('#itname').val(element.item_name);
-										_ = $('#it_qty').val(element.quantity);
-										_ = $('#itamount').val(element.amount);
-										_ = $('#itprice').val(element.unit_price);
-										_ = $('#itdate').val(element.date);
-									});
-									var btmmod = $('.btn_add');
-									btmmod.text('Update');
-								}
-							});
-
-
-							sale = new SalesItem();
-							reset_es();
-						}
+				ItemList.forEach(element => {
+					var str = element.Item_name + ' (' + element.item_type + ')';
+					if (str == sale.item_name) {
+						sale.itemID = element.itemID;
 					}
-				});
-			}
-		});
-	});
-
-	$('#viewItems').on('click', function(){
-		h_name = 'View Items'
-		var request = $.ajax({
-			url: 'routes/modals/items_modal.html',
-			success: function () {
-				modalView = request.responseText;
-				modalCaller();
-				var view = $('.item_view');
-				setTimeout(function () {
-					ItemList.forEach(element => {
-						iiiif = element.itemID;
-						var str = element.unit_price;
-						// str = str.replace('.00', '');
-						// str = str.replace(',', '');
-						var li_element = `<div id="id` + element.itemID + `" class="mini_card">
-											<img class="itImg" src=" ` + element.item_img + ` " alt="">
-											<span class="itName"> ` + element.Item_name + ` </span>
-											<span class="itPrice"> ` + str + ` </span>
-											<img class="itEdit" src="images/editcon.png">
-										</div>`;
-										
-						$(li_element).appendTo(view).ready(function(){
-							// $('#id' + element.itemID).fadeIn(3000);
-							$('#id' + element.itemID).css({
-								'display' : 'flex'
-							})
-							setTimeout(function () {
-							$('#id' + element.itemID).animate({
-									opacity: "1"
-								},
-								{
-									duration: 200,
-									easing: "linear"
-								});
-							}, (element.itemID+'00')/1);
-						
-						});
-					});
-				}, 300);
-				
-				$('.mini_card').on('click', function(e){
-					if (e.target.className != "itEdit"){
-						var item_id = e.target.id || e.target.parentElement.id;
-						alert(item_id); iiiif = e;
-					} else {
-						var item_id = e.target.id || e.target.parentElement.id;
-						$('.modalView').fadeOut(200);
-						$('.modalView').remove();
-						ItemList.forEach(element => {
-							if (element.itemID == item_id.substring(2)){
-								console.log(element);
-							}
-						});
-					}
-				})
-			}
-		});
-	});
-
-	$('#addItems').on('click', function(){
-		h_name = 'Add Items'
-		var request = $.ajax({
-			url: 'routes/modals/add_modal.html',
-			success: function () {
-				modalView = request.responseText;
-				modalCaller();
-				setTimeout(function () { }, 300);
-				var cat_list = $('#category_list');
-				var addList = $('.addedlisttable');
-				CategoryList.forEach(element => {
-					var option = `<option value="` + element.catName + ` ">`;
-					$(option).appendTo(cat_list);
-				});
-
-				$('.resetbtn').on('click', function () {
-					item = new SalesItem();
-					reset_es();
 				});
 				
-				var uid = '';
-				$('.btn_add').on('click', function (e) {
-					var item = new Item();
-					item.item_name = TrimSpace($('#it-name').val());
-					item.item_type = TrimSpace($('#it-type').val());
-					item.unit_price = TrimSpace($('#it-price').val());
-					item.in_stock = TrimSpace($('#it-stock').val());
-					item.item_cat = TrimSpace($('#it-cat').val());
-					item.item_img = TrimSpace($('#it-img').val());
-					
-					if (item.item_name == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
-						WarnEmptyFields();
-						return;
-					}
-					$("#itemtolist").on('click', function(){
-						if (uid != '') {
+				if(sale.item_name == '' || sale.quantity == '' || sale.date == ''){
+					WarnEmptyFields();
+				} else {
+					if(e.target.id == "btntolist"){
+						if(uid != ''){
 							$('#tid' + uid).remove()
 						}
-						
-						var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
-								<td class="Ldata1" id="tID">` + item.itemID + `</td>
-								<td class="Ldata2 tName">` + item.item_name + `</td>
-								<td class="Ldata3 tType">` + item.item_type + `</td>
-								<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
-								<td class="Ldata5 tStock">` + item.in_stock + `</td>
-								<td class="Ldata5 tCat">` + item.item_cat + `</td>
-								<td class="Ldata5 tImg">` + item.item_img + `</td>
+						var trItem = `<tr class="Ldata" id="tid` + sale.saleID + `">
+								<td class="Ldata1" id="tID">` + sale.itemID + `</td>
+								<td class="Ldata2 tName">` + sale.item_name + `</td>
+								<td class="Ldata3 tQty">` + sale.quantity + `</td>
+								<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + sale.amount + `</td>
+								<td class="Ldata5 tDate">` + sale.date + `</td>
 								<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
 							</tr>`;
 
 						$(trItem).appendTo(addList);
-						TempItemList.push(item);
+						TempSalesList.push(sale);
 
-						$('.itDel').on('click', function (e) {
+						$('.itDel').on('click', function(e) {
 							var did = e.target.parentElement.parentElement.id;
 							$('#' + did).remove();
 							var i = 0;
-							TempItemList.forEach(element => {
-								if (element.itemID == did.substring(3)) {
-									TempItemList.splice(i,1);
+							TempSalesList.forEach(element => {
+								if (element.saleID == did.substring(3)) {
+									TempSalesList.splice(i, 1);
 									return;
 								}
 								i += 1;
 							});
 						});
-						$('#tid' + item.itemID).on('click', function (e) {
-							if (e.target.className != "itDel") {
+
+						$('#tid' + sale.saleID).on('click', function(e){
+							if (e.target.className != "itDel"){
 								uid = e.target.parentElement.id.substring(3);
-								TempItemList.forEach(element => {
-									if(element.itemID != uid){
+								TempSalesList.forEach(element => {
+									if (element.saleID != uid) {
 										return;
 									}
-									_ = $('#it-name').val(element.item_name);
-									_ = $('#it-type').val(element.item_type);
-									_ = $('#it-price').val(element.unit_price);
-									_ = $('#it-stock').val(element.in_stock);
-									_ = $('#it-cat').val(element.item_cat);
-									_ = $('#it-img').val(element.item_img);
+									_ = $('#itname').val(element.item_name);
+									_ = $('#it_qty').val(element.quantity);
+									_ = $('#itamount').val(element.amount);
+									_ = $('#itprice').val(element.unit_price);
+									_ = $('#itdate').val(element.date);
 								});
 								var btmmod = $('.btn_add');
 								btmmod.text('Update');
 							}
 						});
 
-						item = new Item();
+
+						sale = new SalesItem();
 						reset_es();
+					}
+				}
+			});
+		}
+	});
+});
+
+$('#viewItems').on('click', function(){
+	h_name = 'View Items'
+	const request = $.ajax({
+		url: 'routes/modals/items_modal.html',
+		success: function (content) {
+			modalCaller(content);
+			var view = $('.item_view');
+			setTimeout(function () {
+				ItemList.forEach(element => {
+					iiiif = element.itemID;
+					var str = element.unit_price;
+					// str = str.replace('.00', '');
+					// str = str.replace(',', '');
+					var li_element = `<div id="id` + element.itemID + `" class="mini_card">
+										<img class="itImg" src=" ` + element.item_img + ` " alt="">
+										<span class="itName"> ` + element.Item_name + ` </span>
+										<span class="itPrice"> ` + str + ` </span>
+										<img class="itEdit" src="images/editcon.png">
+										<a class="mc-front" ></a>
+									</div>`;
+									
+					$(li_element).appendTo(view).ready(function(){
+						// $('#id' + element.itemID).fadeIn(3000);
+						$('#id' + element.itemID).css({
+							'display' : 'flex'
+						})
+						setTimeout(function () {
+						$('#id' + element.itemID).animate({
+								opacity: "1"
+							},
+							{
+								duration: 200,
+								easing: "linear"
+							});
+						}, (element.itemID+'00')/1);
+					
 					});
 				});
-			}
-		});
+				$('.mc-front').on('click', function(e){
+					var item_id = e.target.parentElement.id;
+					ItemList.forEach(element => {
+						if (element.itemID == item_id.substring(2)){
+							OpenDetails(element);
+						}
+					});
+				});
+				$('.itEdit').on('click', function(e){
+					var item_id = e.target.parentElement.id;
+					ItemList.forEach(element => {
+						if (element.itemID == item_id.substring(2)){
+							$('.modalView').fadeOut(200);
+							$('.modalView').remove();
+							CTL();
+							OpenAddModal();
+							UpdateItem(item_id.substring(2), element);
+						}
+					});
+				});
+				$('.mc-front, .mini_card').on('mouseover', function(e){
+					let id = e.target.parentElement.id || e.target.id;
+					$('#' + id + ' .itEdit').fadeIn(100);
+				})
+				$('.mc-front').on('mouseleave', function(){
+					$('.itEdit').fadeOut(100);
+				})
+			}, 300);
+			
+			$('#exitDetail').on('click', function () {
+				$('.detailModalCover').fadeOut(200);
+				//$('.detailBox').remove();
+			});
+		}
 	});
+});
 
-	function modalCaller() {
-		var modalDom = `
-			<div class="modalView">
-				<header class="modalHeader">
-					<h2 class="headerCaption" id="modalheaderCaption">` + h_name +`</h2>
-					<div class="exitModal">
-						<img src="images/exit.png" alt="" class="emImg">
-					</div>
-				</header>
-				` + modalView + `
-			</div>
-		`;
-		$(modalDom).appendTo('body').ready(function() {
-			$('.modalView').fadeIn(200);
-			$('.modalView').css({
-				'display' : 'flex',
-				'flex-direction' : 'column'
+			
+let uid = '';
+
+$('#addItems').on('click', function(){
+	OpenAddModal();
+});
+
+function OpenAddModal() {
+	h_name = 'Add Items'
+	const request = $.ajax({
+		url: 'routes/modals/add_modal.html',
+		success: function (content) {
+			modalCaller(content);
+			setTimeout(function () { }, 300);
+			var cat_list = $('#category_list');
+			var addList = $('.addedlisttable');
+			CategoryList.forEach(element => {
+				var option = `<option value="` + element.catName + ` ">`;
+				$(option).appendTo(cat_list);
 			});
 
-			$('.exitModal').on('click', function () {
-				if (TempItemList.length <= 0 && TempSalesList <= 0) {
-					$('.modalView').fadeOut(200);
-					$('.modalView').remove();
-					CTL();
-					return
-				}
-				function exitCallback() {
-					clearPopUpBox();
-					$('.modalView').fadeOut(200);
-					$('.modalView').remove();
-					CTL();
-				}
-				popUpBox('alert', 'You have unsaved items, do you want to exit this view without saving?', 'closeModal', 'cancelCloseModal', exitCallback);
+			$('.resetbtn').on('click', function () {
+				item = new SalesItem();
+				reset_es();
+			});
+			$('.btn_add').on('click', function (e) {
+				var item = new Item();
+				item.item_name = TrimSpace($('#it-name').val());
+				item.item_type = TrimSpace($('#it-type').val());
+				item.unit_price = TrimSpace($('#it-price').val());
+				item.in_stock = TrimSpace($('#it-stock').val());
+				item.item_cat = TrimSpace($('#it-cat').val());
+				item.item_img = TrimSpace($('#it-img').val());
 				
+				if (item.item_name == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
+					WarnEmptyFields();
+					return;
+				}
+				$("#itemtolist").on('click', function(){
+					if (uid != '') {
+						$('#tid' + uid).remove()
+					}
+					
+					var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
+							<td class="Ldata1" id="tID">` + item.itemID + `</td>
+							<td class="Ldata2 tName">` + item.item_name + `</td>
+							<td class="Ldata3 tType">` + item.item_type + `</td>
+							<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
+							<td class="Ldata5 tStock">` + item.in_stock + `</td>
+							<td class="Ldata5 tCat">` + item.item_cat + `</td>
+							<td class="Ldata5 tImg">` + item.item_img + `</td>
+							<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
+						</tr>`;
+
+					$(trItem).appendTo(addList);
+					TempItemList.push(item);
+
+					$('.itDel').on('click', function (e) {
+						var did = e.target.parentElement.parentElement.id;
+						$('#' + did).remove();
+						var i = 0;
+						TempItemList.forEach(element => {
+							if (element.itemID == did.substring(3)) {
+								TempItemList.splice(i,1);
+								return;
+							}
+							i += 1;
+						});
+					});
+					$('#tid' + item.itemID).on('click', function (e) {
+						if (e.target.className != "itDel") {
+							uid = e.target.parentElement.id.substring(3);
+							TempItemList.forEach(element => {
+								if(element.itemID != uid){
+									return;
+								}
+								_ = $('#it-name').val(element.item_name);
+								_ = $('#it-type').val(element.item_type);
+								_ = $('#it-price').val(element.unit_price);
+								_ = $('#it-stock').val(element.in_stock);
+								_ = $('#it-cat').val(element.item_cat);
+								_ = $('#it-img').val(element.item_img);
+							});
+							var btmmod = $('.btn_add');
+							btmmod.text('Update');
+						}
+					});
+
+					item = new Item();
+					reset_es();
+				});
 			});
-		});
-	}
-	$('div.added table tr:nth-child(even)').css({
-		'background-color': '#f2f2f2'
+		}
 	});
+}
+
+$('#category').on('click', function() {
+	h_name = "Categories Manager"
+	const request = $.ajax({
+		url: "routes/modals/cat_modal.html",
+		success: function(content) {
+			modalCaller(content);
+			let cat_list = $('.cat-list');
+			CategoryList.forEach(category => {
+				cat_list.prepend(cat_template(category));
+			});
+			AddEvents();
+			$('#catToList').click(function(){
+				SaveCategory();
+			});
+			$('#cat_name').keyup(function (event) {
+				if (event.which === 13) {
+					event.preventDefault();
+					SaveCategory();
+				}
+			});
+			function AddEvents() {
+				$('.category').click(function(e){
+					var c_id = e.target.id;
+					if(c_id == 'deleteCat') return;
+					CategoryList.forEach(category => {
+						if(category.catID == c_id){
+							OpenCatDetail(category);
+						}
+					});
+				});
+				$('.deleteCat').click(function(e){
+					DeleteCat(e.target.parentElement.id);
+				});
+			}
+			
+			function DeleteCat(id){
+				CategoryList.forEach(category => {
+					if(category.catID == id){
+						for(let i = 0; i < CategoryList.length; i++){
+							if(CategoryList[i].catID == id){
+								CategoryList.splice(i, 1);
+								break;
+							}
+						}
+						$('#'+id).remove();
+					}
+				})
+			}
+
+			function CloseCatDetail() {
+				$('.catModalDetailCover').fadeOut(100);
+				$('.catModalDetailCover').css({'display': 'none'});
+			}
+
+			$('.catModalDetailCover').on('click', function(){
+				CloseCatDetail()
+			});
+
+			function OpenCatDetail(category) {
+				$('.catModalDetailCover').fadeIn(100);
+				$('.catModalDetailCover').css({'display': 'flex'});
+				$('#c_name').text(category.catName);
+				$('#nop').text(category.NoP);
+				$('#btnToDeleteCat').click(function(){
+					DeleteCat(category.catID);
+					CloseCatDetail();
+				})
+			}
+
+			function SaveCategory() {
+				const catElement = $('#cat_name');
+				console.log(catElement);
+				if(catElement.val() == '' || catElement.val() == null) return;
+				let category = new Category(CategoryList.length, catElement.val());
+				cat_list.prepend(cat_template(category));
+				catElement.val('');
+				CategoryList.push(category);
+				AddEvents();
+			}
+		}
+	});
+});
+
+let cat_template = (category) => {
+	return `<div class="category" id="` + category.catID + `">
+				<h5 class="cat-name">` + category.catName + `</h5>
+				<img src="images/delicon.png" alt="" class="itDel deleteCat" id="">
+			</div>`;
+}
+
+function modalCaller(modalView) {
+	let modalDom = `
+		<div class="modalView">
+			<header class="modalHeader">
+				<h2 class="headerCaption" id="modalheaderCaption">` + h_name +`</h2>
+				<div class="exitModal">
+					<img src="images/exit.png" alt="" class="emImg">
+				</div>
+			</header>
+			` + modalView + `
+		</div>
+	`;
+	$(modalDom).appendTo('body').ready(function() {
+		$('.modalView').fadeIn(200);
+		$('.modalView').css({
+			'display' : 'flex',
+			'flex-direction' : 'column'
+		});
+
+		$('.exitModal').on('click', function () {
+			if (TempItemList.length <= 0 && TempSalesList.length <= 0) {
+				$('.modalView').fadeOut(200);
+				$('.modalView').remove();
+				CTL();
+				return
+			}
+			function exitCallback() {
+				clearPopUpBox();
+				$('.modalView').fadeOut(200);
+				$('.modalView').remove();
+				CTL();
+			}
+			popUpBox('alert', 'You have unsaved items, do you want to exit this view without saving?', 'closeModal', 'cancelCloseModal', exitCallback);
+			
+		});
+	});
+}
+$('div.added table tr:nth-child(even)').css({
+	'background-color': '#f2f2f2'
+});
 
 function reset_es() {
 
@@ -490,11 +599,40 @@ $('.fl-BtnCover').on('mouseover', () => {
 })
 
 $('.fl-BtnCover').on('mouseleave', () => {
-	$('.fl-BtnCover').animate({
-		height: '72px'
-	},
-		{
-			duration: 100,
-			easing: 'linear'
+	setTimeout(function(){
+		$('.fl-BtnCover').animate({
+			height: '72px'
+		},
+			{
+				duration: 100,
+				easing: 'linear'
 		});
-})
+	}, 500);
+});
+
+function OpenDetails(item){
+	$('.detailModalCover').fadeIn(200);
+	$('.detailModalCover').css({
+		'display': 'flex'
+	});
+	$('.it_avatar').attr('src', item.item_img);
+	$('#d_id').text(item.itemID);
+	$('#d_name').text(item.item_name);
+	$('#d_type').text(item.item_type);
+	$('#d_price').text(item.item_price);
+	$('#d_stock').text(item.unit_price);
+	$('#d_cat').text(item.item_cat);
+	$('#d_i_name').text(item.item_img);
+}
+
+function UpdateItem(id, item) {
+	uid = id;
+	_ = $('#it-name').val(item.item_name);
+	_ = $('#it-type').val(item.item_type);
+	_ = $('#it-price').val(item.unit_price);
+	_ = $('#it-stock').val(item.in_stock);
+	_ = $('#it-cat').val(item.item_cat);
+	_ = $('#it-img').val(item.item_img);
+	var btmmod = $('.btn_add');
+	btmmod.text('Update');
+}
