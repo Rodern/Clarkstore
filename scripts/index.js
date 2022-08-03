@@ -33,6 +33,7 @@ $(document).ready(function () {
     $('#inputPassword').keyup(function (event) {
         if (event.which === 13) {
             event.preventDefault();
+            $('#inputPassword').blur();
             submitForm();
         }
     });

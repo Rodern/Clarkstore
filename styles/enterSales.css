@@ -286,6 +286,7 @@ div.cat-form {
     flex-direction: row;
     min-width: 100%;
     gap: 20px;
+    margin-top: 3%;
 }
 
 div.cat-form button {

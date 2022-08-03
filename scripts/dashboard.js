@@ -232,7 +232,7 @@ $('#enterSales').on('click', function(){
 							}
 							$('#tid' + uid).remove()
 						}
-						var trItem = `<tr class="Ldata" id="tid` + sale.saleID + `">
+						var trItem = `<tr class="Ldata newSR" id="tid` + sale.saleID + `">
 								<td class="Ldata1" id="tID">` + sale.saleID + `</td>
 								<td class="Ldata2 tName">` + sale.item_name + `</td>
 								<td class="Ldata3 tQty">` + sale.quantity + `</td>
@@ -275,12 +275,16 @@ $('#enterSales').on('click', function(){
 							}
 						});
 
-
 						sale = new SalesItem();
 						reset_es();
 					}
 				}
 			});
+			$('#saveNewRecords').on('click', function(){
+				SaveNew(TempSalesList, SalesList, "SalesList", "Added to Sale Records.")
+				TempSalesList = new Array();
+				$('.newSR').remove();
+			})
 		}
 	});
 });
@@ -463,10 +467,10 @@ function OpenAddModal() {
 					reset_es();
 				//});
 			});
-			$('#btnNewItems').click(function(){
-				ItemList = SaveNew(TempItemList, ItemList, "ItemList")
+			$('#btnNewItems').on('click', function(){
+				SaveNew(TempItemList, ItemList, "ItemList", "Added to products.")
 				TempItemList = new Array();
-				$('#newTR').remove();
+				$('.newTR').remove();
 			})
 		}
 	});
@@ -513,6 +517,7 @@ $('#category').on('click', function() {
 						for(let i = 0; i < CategoryList.length; i++){
 							if(CategoryList[i].catID == id){
 								CategoryList.splice(i, 1);
+								SetKeyValue("CategoryList", JSON.stringify(CategoryList));
 								break;
 							}
 						}
@@ -520,14 +525,29 @@ $('#category').on('click', function() {
 					}
 				})
 			}
+			function EditCat(id){
+				for(let i = 0; i < CategoryList.length; i++){
+					if(CategoryList[i].catID == id){
+						let div = $('#c_name').text();
+						if(div == '' || div == null) return;
+						CategoryList[i].catName = div;
+						SetKeyValue("CategoryList", JSON.stringify(CategoryList));
+						cat_list.html('');
+						CategoryList.forEach(c => {
+							cat_list.prepend(cat_template(c));
+						})
+					}
+				}
+			}
 
 			function CloseCatDetail() {
 				$('.catModalDetailCover').fadeOut(100);
 				$('.catModalDetailCover').css({'display': 'none'});
 			}
 
-			$('.catModalDetailCover').on('click', function(){
-				CloseCatDetail()
+			$('.catModalDetailCover').on('click', function(e){
+				if(e.target.className == "catModalDetailCover")
+					CloseCatDetail();
 			});
 
 			function OpenCatDetail(category) {
@@ -535,10 +555,19 @@ $('#category').on('click', function() {
 				$('.catModalDetailCover').css({'display': 'flex'});
 				$('#c_name').text(category.catName);
 				$('#nop').text(category.NoP);
+				$('.catDetailBox').attr('id', category.catID);
 				$('#btnToDeleteCat').click(function(){
 					DeleteCat(category.catID);
 					CloseCatDetail();
 				})
+				$('#c_name').keyup(function(e){
+					e.preventDefault();
+					if(e.which === 13){
+						$('#c_name').blur();
+						return;
+					}
+					EditCat(e.target.parentElement.parentElement.id);
+				});
 			}
 
 			function SaveCategory() {
@@ -562,9 +591,16 @@ let cat_template = (category) => {
 			</div>`;
 }
 
-function SaveNew(tmplist, mList, ln){
-	mList.concat(tmplist);
-	SetKeyValue(ln, JSON.stringify(mList)); console.log(tmplist)
+function SaveNew(tmplist, mList, ln, text){
+	if(tmplist.length == 0) {
+		saved("Nothing to save!");
+		return;
+	}
+	tmplist.forEach(item => {
+		mList.push(item);
+	})
+	SetKeyValue(ln, JSON.stringify(mList))
+	saved(text, "done");
 	return mList;
 }
 
@@ -605,6 +641,11 @@ function modalCaller(modalView) {
 		});
 	});
 }
+
+function saved(text, type = "warn"){
+	popUpBox(type, text, 'savedList');
+}
+
 $('div.added table tr:nth-child(even)').css({
 	'background-color': '#f2f2f2'
 });
