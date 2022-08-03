@@ -161,7 +161,7 @@ $('#enterSales').on('click', function(){
 			var item_list = $('#item_list');
 			var addList = $('.addedlisttable');
 			ItemList.forEach(element => {
-				var option = `<option value="` + element.Item_name + ` (` + element.item_type + `)">`;
+				var option = `<option value="` + element.item_name + ` (` + element.item_type + `)">`;
 				$(option).appendTo(item_list);
 			});
 			$('#itname').keyup(function () {
@@ -176,7 +176,7 @@ $('#enterSales').on('click', function(){
 						var amt = $('#itamount').val('');
 					}
 					ItemList.forEach(element => {
-						var str = element.Item_name + ' (' + element.item_type + ')';
+						var str = element.item_name + ' (' + element.item_type + ')';
 						if (str == name) {
 							var str = element.unit_price.substring(4);
 							str = str.replace('.00', '');
@@ -209,7 +209,7 @@ $('#enterSales').on('click', function(){
 				sale.date = $('#itdate').val();
 
 				ItemList.forEach(element => {
-					var str = element.Item_name + ' (' + element.item_type + ')';
+					var str = element.item_name + ' (' + element.item_type + ')';
 					if (str == sale.item_name) {
 						sale.itemID = element.itemID;
 					}
@@ -220,15 +220,25 @@ $('#enterSales').on('click', function(){
 				} else {
 					if(e.target.id == "btntolist"){
 						if(uid != ''){
+							sale.saleID = uid/1;
+							try {
+								TempSalesList.forEach(i => {
+									if(i.saleID = uid){
+										TempSalesList.splice(i, 1);
+									}
+								});
+							} catch (error) {
+								
+							}
 							$('#tid' + uid).remove()
 						}
 						var trItem = `<tr class="Ldata" id="tid` + sale.saleID + `">
-								<td class="Ldata1" id="tID">` + sale.itemID + `</td>
+								<td class="Ldata1" id="tID">` + sale.saleID + `</td>
 								<td class="Ldata2 tName">` + sale.item_name + `</td>
 								<td class="Ldata3 tQty">` + sale.quantity + `</td>
 								<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + sale.amount + `</td>
 								<td class="Ldata5 tDate">` + sale.date + `</td>
-								<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png"></td>
+								<td class="Ldata5 tDel"><img class="itDel" src="images/delicon.png" /></td>
 							</tr>`;
 
 						$(trItem).appendTo(addList);
@@ -290,7 +300,7 @@ $('#viewItems').on('click', function(){
 					// str = str.replace(',', '');
 					var li_element = `<div id="id` + element.itemID + `" class="mini_card">
 										<img class="itImg" src=" ` + element.item_img + ` " alt="">
-										<span class="itName"> ` + element.Item_name + ` </span>
+										<span class="itName"> ` + element.item_name + ` </span>
 										<span class="itPrice"> ` + str + ` </span>
 										<img class="itEdit" src="images/editcon.png">
 										<a class="mc-front" ></a>
@@ -357,6 +367,7 @@ $('#addItems').on('click', function(){
 	OpenAddModal();
 });
 
+
 function OpenAddModal() {
 	h_name = 'Add Items'
 	const request = $.ajax({
@@ -375,7 +386,7 @@ function OpenAddModal() {
 				item = new SalesItem();
 				reset_es();
 			});
-			$('.btn_add').on('click', function (e) {
+			$('#itemtolist').on('click', function (e) {
 				var item = new Item();
 				item.item_name = TrimSpace($('#it-name').val());
 				item.item_type = TrimSpace($('#it-type').val());
@@ -388,12 +399,22 @@ function OpenAddModal() {
 					WarnEmptyFields();
 					return;
 				}
-				$("#itemtolist").on('click', function(){
+				//$("#itemtolist").on('click', function(){
 					if (uid != '') {
+						item.itemID = uid/1;
+						try {
+							TempItemList.forEach(i => {
+								if(i.itemID = uid){
+									TempItemList.splice(i, 1);
+								}
+							})
+						} catch (error) {
+							
+						}
 						$('#tid' + uid).remove()
 					}
 					
-					var trItem = `<tr class="Ldata" id="tid` + item.itemID + `">
+					var trItem = `<tr class="Ldata newTR" id="tid` + item.itemID + `">
 							<td class="Ldata1" id="tID">` + item.itemID + `</td>
 							<td class="Ldata2 tName">` + item.item_name + `</td>
 							<td class="Ldata3 tType">` + item.item_type + `</td>
@@ -440,8 +461,13 @@ function OpenAddModal() {
 
 					item = new Item();
 					reset_es();
-				});
+				//});
 			});
+			$('#btnNewItems').click(function(){
+				ItemList = SaveNew(TempItemList, ItemList, "ItemList")
+				TempItemList = new Array();
+				$('#newTR').remove();
+			})
 		}
 	});
 }
@@ -517,12 +543,12 @@ $('#category').on('click', function() {
 
 			function SaveCategory() {
 				const catElement = $('#cat_name');
-				console.log(catElement);
 				if(catElement.val() == '' || catElement.val() == null) return;
 				let category = new Category(CategoryList.length, catElement.val());
 				cat_list.prepend(cat_template(category));
 				catElement.val('');
 				CategoryList.push(category);
+				SetKeyValue("CategoryList", JSON.stringify(CategoryList));
 				AddEvents();
 			}
 		}
@@ -534,6 +560,12 @@ let cat_template = (category) => {
 				<h5 class="cat-name">` + category.catName + `</h5>
 				<img src="images/delicon.png" alt="" class="itDel deleteCat" id="">
 			</div>`;
+}
+
+function SaveNew(tmplist, mList, ln){
+	mList.concat(tmplist);
+	SetKeyValue(ln, JSON.stringify(mList)); console.log(tmplist)
+	return mList;
 }
 
 function modalCaller(modalView) {

@@ -252,7 +252,7 @@ div.stInfo span {
 	max-width: -webkit-fill-available;
     left: 0%;
     right: 0%;
-	height: -webkit-fill-available;
+	height: 220px;
 	background-color: rgba(0, 0, 0, 0.918);
 	box-sizing: border-box;
 	overflow: hidden;
@@ -263,7 +263,7 @@ div.stInfo span {
 	font-family: 'Open Sans light';
 	font-size: 0.8rem;
 	font-style: normal;
-	padding: 2% 2%;
+	padding: 10px;
 	letter-spacing: 0.1rem;
 	position: relative;
 }
@@ -290,7 +290,7 @@ div.stInfo span {
 	font-weight: 300;
 	border:1px solid white;
 	margin: 0px;
-	padding: 2%;
+	padding: 10px;
 	text-decoration: none;
 	box-sizing: border-box;
 }

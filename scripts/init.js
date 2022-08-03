@@ -2,6 +2,22 @@
 var globalAlertCancel = document.getElementById('cancelHandler');
 var globalAlertConfirm = document.getElementById('alertBtnHandler');
 
+function KeyExist(key){
+    let v = localStorage.getItem(key);
+    if(v == null) 
+        return false;
+    return true;
+}
+
+function GetKeyValue(key){
+    return localStorage.getItem(key);
+}
+
+function DeleteKey(key) {localStorage.removeItem(key)}
+
+function SetKeyValue(key, val){
+    localStorage.setItem(key, val);
+}
 
 class Item {
     constructor(itemID = (new Date()).getTime(), item_name, item_type, unit_price, in_stock, item_cat, item_img) {
@@ -45,6 +61,10 @@ let SalesList = new Array();
 let TempSalesList = new Array();
 let CategoryList = new Array();
 var stWidth = false;
+
+if(!KeyExist("ItemList")) SetKeyValue("ItemList", JSON.stringify(ItemList));
+if(!KeyExist("SalesList")) SetKeyValue("SalesList", JSON.stringify(SalesList));
+if(!KeyExist("CategoryList")) SetKeyValue("CategoryList", JSON.stringify(CategoryList));
 
 function loadScript(id, url){
     var script = document.createElement('script');
@@ -144,7 +164,11 @@ function Loader() {
         }
     });
 
-    var JsonData = $.ajax({
+    ItemList = JSON.parse(GetKeyValue("ItemList"));
+    SalesList = JSON.parse(GetKeyValue("SalesList"));
+    CategoryList = JSON.parse(GetKeyValue("CategoryList"));
+
+    /* var JsonData = $.ajax({
         url: "database/clexan-foods.json",
         success: function () {
             //console.log(JsonData.responseText);
@@ -157,7 +181,7 @@ function Loader() {
         success: function () {
             CategoryList = JSON.parse(CatData.responseText);
         }
-    });
+    }); */
 
 }
 
