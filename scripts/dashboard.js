@@ -289,6 +289,16 @@ $('#enterSales').on('click', function(){
 	});
 });
 
+$('#viewSales').on('click', function(){
+	h_name = "Sales Managment";
+	$.ajax({
+		url: "routes/modals/sales_modal.html",
+		success: function(content) {
+			modalCaller(content);
+		}
+	});
+})
+
 $('#viewItems').on('click', function(){
 	h_name = 'View Items'
 	const request = $.ajax({
