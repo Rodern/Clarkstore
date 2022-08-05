@@ -295,6 +295,7 @@ $('#viewSales').on('click', function(){
 		url: "routes/modals/sales_modal.html",
 		success: function(content) {
 			modalCaller(content);
+			$('#sortList').selectmenu();
 		}
 	});
 })
