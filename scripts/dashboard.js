@@ -26,7 +26,7 @@ $('#clickId_rec').on('click', function () {
 		success: function () {
 			var eDom = "";
 			eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function () {
-				//$.getScript('scripts/dashboard.js');
+				$.getScript('scripts/dashboard.js');
 				//removeScript("dsb");
 				//loadScript("dsb", "scripts/dashboard.js");
 				load_Dock();
@@ -178,10 +178,11 @@ $('#enterSales').on('click', function(){
 					ItemList.forEach(element => {
 						var str = element.item_name + ' (' + element.item_type + ')';
 						if (str == name) {
-							var str = element.unit_price.substring(4);
-							str = str.replace('.00', '');
-							str = str.replace(',', '');
-							$('#itprice').val(str);
+							let price = element.unit_price;
+							/*var str = element.unit_price.substring(4);
+							 str = str.replace('.00', '');
+							str = str.replace(',', ''); */
+							$('#itprice').val(price);
 						}
 					});
 				//}
@@ -295,7 +296,16 @@ $('#viewSales').on('click', function(){
 		url: "routes/modals/sales_modal.html",
 		success: function(content) {
 			modalCaller(content);
-			$('#sortList').selectmenu();
+			let sortList = $('#sortList').selectmenu();
+			let list = $('.sales-list')
+			SalesList.forEach(sales => {
+				list.prepend(sales_template(sales));
+			})
+				let filterMenu = $('.filter-menu');
+			$('.filter-menu-btn').click(function(){
+				filterMenu.fadeIn(100);
+				filterMenu.css('display', 'flex');
+			})
 		}
 	});
 })
@@ -376,7 +386,7 @@ $('#viewItems').on('click', function(){
 });
 
 			
-let uid = '';
+var uid = '';
 
 $('#addItems').on('click', function(){
 	OpenAddModal();
@@ -602,6 +612,17 @@ let cat_template = (category) => {
 			</div>`;
 }
 
+let sales_template = (salesItem) => {
+	return `<div class="sales-item" id="` + salesItem.saleID + `">
+				<h5 class="cat-name">` + salesItem.item_name + `</h5>
+				<span class="s-el">Qty: ` + salesItem.quantity + `</span>
+				<span class="s-el">UP: ` + salesItem.unit_price + `</span>
+				<span class="s-el">Amount: ` + salesItem.amount + `fcfa</span>
+				<span class="s-el s-num">Date: ` + salesItem.date + `</span>
+				<img src="images/delicon.png" alt="" class="itDel deleteCat" id="">
+			</div>`;
+}
+
 function SaveNew(tmplist, mList, ln, text){
 	if(tmplist.length == 0) {
 		saved("Nothing to save!");
@@ -720,3 +741,7 @@ function UpdateItem(id, item) {
 	var btmmod = $('.btn_add');
 	btmmod.text('Update');
 }
+
+$(document).ready(() => {
+	atClose(3000);
+});

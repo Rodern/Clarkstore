@@ -1,4 +1,22 @@
+let timerID;
 
+let DebouncedFunction = (handler, delay) => {
+    clearTimeout(timerID);
+    timerID = setTimeout(handler, delay);
+}
+
+let Throttle = (callback, waitTime) => {
+    let waiting = false;
+    return () => {
+        if (!waiting) {
+            callback.apply(this, arguments);
+            waiting = true;
+            setTimeout(() => {
+                waiting = false;
+            }, waitTime);
+        }
+    }
+}
 var globalAlertCancel = document.getElementById('cancelHandler');
 var globalAlertConfirm = document.getElementById('alertBtnHandler');
 
@@ -65,6 +83,36 @@ var stWidth = false;
 if(!KeyExist("ItemList")) SetKeyValue("ItemList", JSON.stringify(ItemList));
 if(!KeyExist("SalesList")) SetKeyValue("SalesList", JSON.stringify(SalesList));
 if(!KeyExist("CategoryList")) SetKeyValue("CategoryList", JSON.stringify(CategoryList));
+
+
+$(document).on('click', (e) => {
+    DebouncedFunction(function() {
+        let filterMenu = $('.filter-menu');
+        if(e.target.className != 'filter-menu-btn'){
+            if((e.target.className == 'filter-menu' || e.target.parentElement.className == 'filter-menu' || e.target.parentElement.parentElement.className == 'filter-menu' || e.target.parentElement.parentElement.parentElement.className == 'filter-menu') && filterMenu.css('display') == 'flex'){
+                return;/* filterMenu.fadeOut(100);
+                filterMenu.css('display', 'none'); */
+            }
+            filterMenu.fadeOut(100);
+            filterMenu.css('display', 'none');
+            return;
+        }
+    }, 500);
+    
+    DebouncedFunction(function() {
+        let stackPanel = $('.stackPanel');
+        if(e.target.className != 'exitPanel' || e.target.className != 'headerMenu' || e.target.parentElement.className != 'exitPanel' || e.target.parentElement.className != 'headerMenu'){
+            if(e.target.className){
+                //alert('jhkl');
+                return;
+            }
+            //stackCloseCaller();
+            //stWidth = false;
+            //alert('jhkvnfjgl');
+            return;
+        }
+    }, 20);
+})
 
 function loadScript(id, url){
     var script = document.createElement('script');
@@ -182,7 +230,47 @@ function Loader() {
             CategoryList = JSON.parse(CatData.responseText);
         }
     }); */
+}
 
+function validateFormEntry(username, password) {
+    if (username == null || username == "") {
+        $('#inputError-0').html("Please provide username");
+    }
+    if (password == null || password == "") {
+        $('#inputError-1').html("Please provide password");
+    }
+}
+
+function submitForm() {
+    var username = TrimSpace($('#inputUserName').val()).toLowerCase();
+    var password = TrimSpace($('#inputPassword').val()).toLowerCase();
+    
+    validateFormEntry(username, password);
+
+    if ((password != "" && password != null) && (username != "" && username != null)) {
+        if (username == 'clarks') {
+            if (password == 'pass') {
+                $('#welcomeView').animate({
+                    marginLeft: "-200px",
+                    opacity: "0"
+                },
+                {
+                    duration: 200,
+                    easing: "linear",
+                    complete: function () {
+                        $('#welcomeView').remove();
+                        //Loader();
+                        localStorage.setItem("loggedIn", "true");
+                        _ROUTER.navigate('/dashboard');
+                    }
+                });
+            } else {
+                popUpBox('warn', 'Wrong password! Please check again.', 'closeInError');
+            }
+        } else {
+            popUpBox('warn', 'Wrong username! Please check again.', 'closeInError');
+        }
+    }
 }
 
 function load_Dock() {
@@ -207,24 +295,23 @@ function load_Foot() {
 
 $(document).ready(function (){
     var adminIsLoggedIn = localStorage.getItem("loggedIn");
-    //alert(adminIsLoggedIn)
     if(adminIsLoggedIn == "true") {
-        Loader();
+        _ROUTER.navigate('/dashboard');
     } else {
-        $(document).ready(function () {
-            var welcomeDom = $.ajax({
-                url: "routes/welcome.html",
-                success: function() {
-                    var wDom = $(welcomeDom.responseText).appendTo($('.main_content')).ready(function () {
-                        $.getScript('scripts/index.js', function() {
-                            console.log("Scripts Loaded");
-                        })
-                    });
-                }
-            });
-        });
+        _ROUTER.navigate('/welcome');
     }
 });
+
+function loadWelcome() {
+    var welcomeDom = $.ajax({
+        url: "routes/welcome.html",
+        success: function() {
+            var wDom = $(welcomeDom.responseText).appendTo($('.main_content')).ready(function () {
+                $.getScript('scripts/index.js');
+            });
+        }
+    });
+}
 
 
 function popUpBox(boxType, boxMsg, OKCN, cancelCN = "CN_Class", CallBack = function () {

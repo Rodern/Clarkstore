@@ -31,3 +31,4 @@ $('#exitPanel').on('click', function () {
     stackCloseCaller();
     stWidth = false;
 }); */
+

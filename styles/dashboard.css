@@ -1,23 +1,9 @@
-div.st-cover {
-	display: block;
-	background-color: rgba(0, 0, 0, 0);
-	width: 250px;
-	height: -webkit-fill-available;
-	overflow: hidden;
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	margin-top: 40px;
-	z-index: 48;
-}
-
 div.stackPanel {
+	margin-top: 40px;
 	display: flex;
 	flex-direction: column;
 	width: 250px;
 	height: -webkit-fill-available;
-	/* background-color: white;
-	background-color: rgb(78, 78, 78); */
 	position: absolute;
 	top: 0%;
 	left: 0%;
