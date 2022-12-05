@@ -45,7 +45,16 @@ class Router {
     }
 
     match(route) {
-        for (let i = 0; i < this.routes.length; i++) {
+        let matched = false
+        this.routes.forEach(iroute => {
+            if(iroute.path == route) {
+                iroute.handler();
+                this.location(route)
+                matched = true
+                return
+            }
+        });
+        /* for (let i = 0; i < this.routes.length; i++) {
             let paramNames = [];
             let regexPath = this.routes[i].path.replace(/([:*])(\w+)/g, (full, colon, name) => {
                 paramNames.push(name);
@@ -65,18 +74,32 @@ class Router {
                 } else {
                     this.routes[i].handler(params);
                 }
+                document.querySelector('title').innerText = `${AppName} | ${this.routes[i].name}`
                 this.location(route)
+                return
             }
-        }
+            
+        } */
+        if(route == '/') return
+        if(matched == true) return
+        popUpBox('error', 'Invalid: Route not found!', 'acceptInvalid', 'none', () =>{
+            clearPopUpBox();
+            if(GetKeyValue(IsLoggedInKeyName) == 'true') {
+                history.back()
+                return
+            }
+            UserService.logout()
+        })
     }
     
     location(route) {
         if (this.mode === 'history') {
-            window.history.pushState(null, null, this.root + route);
+            window.history.pushState(null, null, this.root + location.pathname + route.substring(1));
         } else {
             route = route.replace(/^\//, '').replace(/\/$/, '');
-            window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + route;
-        }            
+            //window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + route;
+            window.history.pushState(null, null, window.location.href.replace(/#(.*)$/, '') + '#' + route);
+        }          
     }
 }
 

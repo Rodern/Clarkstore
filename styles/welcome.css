@@ -6,6 +6,8 @@ div#welcomeView {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: auto;
     width: 380px;
     min-width: 380px;
@@ -67,7 +69,7 @@ div#avatarBox {
 img#avatar {
     width: auto;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.295);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 span.avatarText {
@@ -85,6 +87,10 @@ div#welcomeView > div.formArea {
     background-color: none;
 }
 
+div.formArea form {
+
+}
+
 form div.formSection {
     display: flex;
     flex-direction: column;
@@ -96,6 +102,9 @@ form div.formSection {
 
 form div.formSection.LDiv{
     margin-top: 20px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
 }
 
 form div.formSection label {
@@ -133,7 +142,6 @@ form div.formSection span#inputError-0, form div.formSection span#inputError-1 {
 form div.formSection button#login, .btn_add, .resetbtn, button.btn_save {
     width: 60%;
     height: 30px;
-    margin: auto;
     font-family: 'Open sans';
     color: white;
     font-weight: bold;
@@ -155,3 +163,22 @@ form div.formSection button#login:hover {
 p.forgot_pass {
     font-size: 0.76em;
 }
+
+p.forgot_pass a {
+    text-decoration: none;
+}
+
+p.forgot_pass a:hover {
+    transition: all .1s ease-in;
+    color: white;
+    background-color: green;
+    padding-inline: 1px;
+    border-radius: 2px;
+    text-decoration: underline;
+}
+/* 
+button#login {
+    max-width: 80px;
+    margin-left: -80px;
+    margin-right: auto;
+} */

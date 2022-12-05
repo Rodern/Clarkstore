@@ -12,7 +12,46 @@ $(document).ready(function () {
             $('#inputError-1').html('');
         }
     });
+    $('#login').on('pointerover', (e)=>{
+        var username = TrimSpace($('#inputUserName').val()).toLowerCase();
+        var password = TrimSpace($('#inputPassword').val()).toLowerCase();
+        if(username != '' || password != '') return
+        if (e.pageX < innerWidth / 2) {
+            $('#login').animate({
+                marginLeft: "170px",
+            },
+                {
+                    duration: 100,
+                    easing: "linear",
+                    complete: function () {
+                        
+                    }
+                })
+            return
+        }
+        $('#login').animate({
+            marginLeft: "-170px",
+        },
+            {
+                duration: 100,
+                easing: "linear",
+                complete: function () {
 
+                }
+            })
+    })
+    $('.LDiv').on('pointerleave', (e)=>{
+        $('#login').animate({
+            marginLeft: "0px",
+        },
+        {
+            duration: 100,
+            easing: "linear",
+            complete: function () {
+
+            }
+        })
+    })
 
     $('#inputUserName').keyup(function (event) {
         if (event.which === 13) {

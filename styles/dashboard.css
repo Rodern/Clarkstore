@@ -185,10 +185,11 @@ div.stInfo span {
 	background-image: radial-gradient( rgb(44, 52, 165) 5%, rgb(18, 22, 78) 90%,  rgb(44, 52, 165) 5%); */
 	text-align: center;
 	color: rgb(34, 34, 34);
-	border: 0px solid rgba(105, 105, 105, 0.479);
-	box-shadow: 0px 0px 5px 1px rgba(54, 54, 54, 0.83);
+	border: 1px solid rgba(39, 39, 39, 0.171);
+	box-shadow: 0px 1px 2px 0px rgba(7, 7, 7, 0.342);
 	border-radius: 5%;
 	backdrop-filter: blur(1px);
+	-webkit-backdrop-filter: blur(1px);
 	overflow: hidden;
 	font-size: 14px;
 	cursor: default;

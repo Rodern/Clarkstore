@@ -1,7 +1,7 @@
 ﻿[
     {
         "itemID": "1",
-        "Item_name": "Chin-chin",
+        "itemName": "Chin-chin",
         "item_type": "small",
         "unit_price": "XAF 100.00",
         "in_stock": "50",
@@ -9,7 +9,7 @@
     },
     {
         "itemID": "2",
-        "Item_name": "Chin-chin",
+        "itemName": "Chin-chin",
         "item_type": "medium",
         "unit_price": "XAF 500.00",
         "in_stock": "21",
@@ -17,7 +17,7 @@
     },
     {
         "itemID": "3",
-        "Item_name": "Chin-chin",
+        "itemName": "Chin-chin",
         "item_type": "large",
         "unit_price": "XAF 1,000.00",
         "in_stock": "5",
@@ -25,7 +25,7 @@
     },
     {
         "itemID": "4",
-        "Item_name": "Dough-nuts",
+        "itemName": "Dough-nuts",
         "item_type": "",
         "unit_price": "XAF 100.00",
         "in_stock": "44",
@@ -33,7 +33,7 @@
     },
     {
         "itemID": "5",
-        "Item_name": "Pea nuts",
+        "itemName": "Pea nuts",
         "item_type": "small",
         "unit_price": "XAF 100.00",
         "in_stock": "76",
@@ -41,7 +41,7 @@
     },
     {
         "itemID": "6",
-        "Item_name": "Pea nuts",
+        "itemName": "Pea nuts",
         "item_type": "large",
         "unit_price": "XAF 1,300.00",
         "in_stock": "10",
@@ -49,7 +49,7 @@
     },
     {
         "itemID": "7",
-        "Item_name": "Eggs",
+        "itemName": "Eggs",
         "item_type": "retail",
         "unit_price": "XAF 100.00",
         "in_stock": "90",
@@ -57,7 +57,7 @@
     },
     {
         "itemID": "8",
-        "Item_name": "Eggs",
+        "itemName": "Eggs",
         "item_type": "tray",
         "unit_price": "XAF 2,200.00",
         "in_stock": "4",
@@ -65,7 +65,7 @@
     },
     {
         "itemID": "9",
-        "Item_name": "maggi",
+        "itemName": "maggi",
         "item_type": "5-pieces",
         "unit_price": "XAF 50.00",
         "in_stock": "50",
@@ -73,7 +73,7 @@
     },
     {
         "itemID": "10",
-        "Item_name": "Salt",
+        "itemName": "Salt",
         "item_type": "small",
         "unit_price": "XAF 50.00",
         "in_stock": "100",
@@ -81,7 +81,7 @@
     },
     {
         "itemID": "11",
-        "Item_name": "Sugar",
+        "itemName": "Sugar",
         "item_type": "5-cube",
         "unit_price": "XAF 25.00",
         "in_stock": "300",
@@ -89,7 +89,7 @@
     },
     {
         "itemID": "12",
-        "Item_name": "Parle G",
+        "itemName": "Parle G",
         "item_type": "small size",
         "unit_price": "XAF 25.00",
         "in_stock": "62",
@@ -97,7 +97,7 @@
     },
     {
         "itemID": "13",
-        "Item_name": "Planet",
+        "itemName": "Planet",
         "item_type": "1.25l",
         "unit_price": "XAF 500.00",
         "in_stock": "12",
@@ -105,7 +105,7 @@
     },
     {
         "itemID": "14",
-        "Item_name": "Sponge",
+        "itemName": "Sponge",
         "item_type": "soft",
         "unit_price": "XAF 50.00",
         "in_stock": "13",
@@ -113,7 +113,7 @@
     },
     {
         "itemID": "15",
-        "Item_name": "Sponge",
+        "itemName": "Sponge",
         "item_type": "small-strong",
         "unit_price": "XAF 50.00",
         "in_stock": "8",
@@ -121,7 +121,7 @@
     },
     {
         "itemID": "16",
-        "Item_name": "Tomatoes",
+        "itemName": "Tomatoes",
         "item_type": "Sachet",
         "unit_price": "XAF 100.00",
         "in_stock": "42",
@@ -129,7 +129,7 @@
     },
     {
         "itemID": "17",
-        "Item_name": "Spagetti",
+        "itemName": "Spagetti",
         "item_type": "small-250",
         "unit_price": "XAF 250.00",
         "in_stock": "12",
@@ -137,7 +137,7 @@
     },
     {
         "itemID": "18",
-        "Item_name": "Omo",
+        "itemName": "Omo",
         "item_type": "local",
         "unit_price": "XAF 50.00",
         "in_stock": "30",
@@ -145,7 +145,7 @@
     },
     {
         "itemID": "19",
-        "Item_name": "Top milk",
+        "itemName": "Top milk",
         "item_type": "small",
         "unit_price": "XAF 50.00",
         "in_stock": "8",

@@ -1,9 +1,6 @@
 var iiiif;
 
-function logout_handler() {
-	localStorage.setItem("loggedIn", "false");
-	window.location.reload();
-}
+
 
 $('.panel_list li').on('click', function(e) {
 	var itemID = e.target.id || e.target.parentElement.id;
@@ -20,19 +17,10 @@ $('.panel_list li').on('click', function(e) {
 $('#clickId_rec').on('click', function () {
 	$('.main_content').html('');
 	$('.headerCaption').text('Explore');
-	var exploreDom = "";
-	exploreDom = $.ajax({
-		url: "routes/views/exploreView.html",
-		success: function () {
-			var eDom = "";
-			eDom = $(exploreDom.responseText).appendTo($('.main_content')).ready(function () {
-				$.getScript('scripts/dashboard.js');
-				//removeScript("dsb");
-				//loadScript("dsb", "scripts/dashboard.js");
-				load_Dock();
-			});
-		}
-	});
+	main_view.load('routes/views/exploreView.html').ready(()=>{
+		$.getScript("scripts/dashboard.js", function (script, textStatus, jqXHR) {
+		});
+	})
 });
 
 $('#clickId_dash').on('click', function () {
@@ -98,13 +86,13 @@ $('#clickId_set').on('click', function () {
 $('#clickId_log').on('click', function () {
 	const LG_CallBack = function () {
 		clearPopUpBox();
-		logout_handler();
+		UserService.logout();
 	};
 
 	popUpBox('alert', 'Are you sure you want to logout?', 'confirmLogout', 'cancel_logout', LG_CallBack);
 });
 
-$('.grid a').on('mouseover', function(e) {
+$('.grid a').on('pointerover', function(e) {
 	var item_id = e.target.parentElement.id;
 	$(".dockPanel").fadeIn(100);
 
@@ -130,8 +118,10 @@ $('.grid a').on('mouseover', function(e) {
 });
 
 $('.grid a').on('mouseleave', function() {
-	$(".dockPanel").fadeOut(100);
-	$('.dockPanel').html('');
+	setTimeout(() => {
+		$(".dockPanel").fadeOut(200);
+		$('.dockPanel').html('');
+	}, 4000);
 })
 
 function dockInfoWrite(name, desc) {
@@ -161,7 +151,7 @@ $('#enterSales').on('click', function(){
 			var item_list = $('#item_list');
 			var addList = $('.addedlisttable');
 			ItemList.forEach(element => {
-				var option = `<option value="` + element.item_name + ` (` + element.item_type + `)">`;
+				var option = `<option value="` + element.itemName + ` (` + element.item_type + `)">`;
 				$(option).appendTo(item_list);
 			});
 			$('#itname').keyup(function () {
@@ -176,7 +166,7 @@ $('#enterSales').on('click', function(){
 						var amt = $('#itamount').val('');
 					}
 					ItemList.forEach(element => {
-						var str = element.item_name + ' (' + element.item_type + ')';
+						var str = element.itemName + ' (' + element.item_type + ')';
 						if (str == name) {
 							let price = element.unit_price;
 							/*var str = element.unit_price.substring(4);
@@ -203,20 +193,20 @@ $('#enterSales').on('click', function(){
 			var uid = '';
 			$('.btn_add').on('click', function clickAdd(e){
 				var sale = new SalesItem();
-				sale.item_name = TrimSpace($('#itname').val());
+				sale.itemName = TrimSpace($('#itname').val());
 				sale.quantity = TrimSpace($('#it_qty').val());
 				sale.amount = TrimSpace($('#itamount').val());
 				sale.unit_price = TrimSpace($('#itprice').val());
 				sale.date = $('#itdate').val();
 
 				ItemList.forEach(element => {
-					var str = element.item_name + ' (' + element.item_type + ')';
-					if (str == sale.item_name) {
+					var str = element.itemName + ' (' + element.item_type + ')';
+					if (str == sale.itemName) {
 						sale.itemID = element.itemID;
 					}
 				});
 				
-				if(sale.item_name == '' || sale.quantity == '' || sale.date == ''){
+				if(sale.itemName == '' || sale.quantity == '' || sale.date == ''){
 					WarnEmptyFields();
 				} else {
 					if(e.target.id == "btntolist"){
@@ -235,7 +225,7 @@ $('#enterSales').on('click', function(){
 						}
 						var trItem = `<tr class="Ldata newSR" id="tid` + sale.saleID + `">
 								<td class="Ldata1" id="tID">` + sale.saleID + `</td>
-								<td class="Ldata2 tName">` + sale.item_name + `</td>
+								<td class="Ldata2 tName">` + sale.itemName + `</td>
 								<td class="Ldata3 tQty">` + sale.quantity + `</td>
 								<td class="Ldata4 tAmount"><span class="itC">FCFA</span>` + sale.amount + `</td>
 								<td class="Ldata5 tDate">` + sale.date + `</td>
@@ -265,7 +255,7 @@ $('#enterSales').on('click', function(){
 									if (element.saleID != uid) {
 										return;
 									}
-									_ = $('#itname').val(element.item_name);
+									_ = $('#itname').val(element.itemName);
 									_ = $('#it_qty').val(element.quantity);
 									_ = $('#itamount').val(element.amount);
 									_ = $('#itprice').val(element.unit_price);
@@ -325,7 +315,7 @@ $('#viewItems').on('click', function(){
 					// str = str.replace(',', '');
 					var li_element = `<div id="id` + element.itemID + `" class="mini_card">
 										<img class="itImg" src=" ` + element.item_img + ` " alt="">
-										<span class="itName"> ` + element.item_name + ` </span>
+										<span class="itName"> ` + element.itemName + ` </span>
 										<span class="itPrice"> ` + str + ` </span>
 										<img class="itEdit" src="images/editcon.png">
 										<a class="mc-front" ></a>
@@ -403,7 +393,7 @@ function OpenAddModal() {
 			var cat_list = $('#category_list');
 			var addList = $('.addedlisttable');
 			CategoryList.forEach(element => {
-				var option = `<option value="` + element.catName + ` ">`;
+				var option = `<option value="` + element.name + ` ">`;
 				$(option).appendTo(cat_list);
 			});
 
@@ -413,14 +403,14 @@ function OpenAddModal() {
 			});
 			$('#itemtolist').on('click', function (e) {
 				var item = new Item();
-				item.item_name = TrimSpace($('#it-name').val());
+				item.itemName = TrimSpace($('#it-name').val());
 				item.item_type = TrimSpace($('#it-type').val());
 				item.unit_price = TrimSpace($('#it-price').val());
 				item.in_stock = TrimSpace($('#it-stock').val());
 				item.item_cat = TrimSpace($('#it-cat').val());
 				item.item_img = TrimSpace($('#it-img').val());
 				
-				if (item.item_name == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
+				if (item.itemName == '' || item.item_type == '' || item.unit_price == '' || item.in_stock == '' || item.item_img == '' || item.item_img == '') {
 					WarnEmptyFields();
 					return;
 				}
@@ -441,7 +431,7 @@ function OpenAddModal() {
 					
 					var trItem = `<tr class="Ldata newTR" id="tid` + item.itemID + `">
 							<td class="Ldata1" id="tID">` + item.itemID + `</td>
-							<td class="Ldata2 tName">` + item.item_name + `</td>
+							<td class="Ldata2 tName">` + item.itemName + `</td>
 							<td class="Ldata3 tType">` + item.item_type + `</td>
 							<td class="Ldata4 tPrice"><span class="itC">FCFA</span>` + item.unit_price + `</td>
 							<td class="Ldata5 tStock">` + item.in_stock + `</td>
@@ -472,7 +462,7 @@ function OpenAddModal() {
 								if(element.itemID != uid){
 									return;
 								}
-								_ = $('#it-name').val(element.item_name);
+								_ = $('#it-name').val(element.itemName);
 								_ = $('#it-type').val(element.item_type);
 								_ = $('#it-price').val(element.unit_price);
 								_ = $('#it-stock').val(element.in_stock);
@@ -511,7 +501,7 @@ $('#category').on('click', function() {
 			$('#catToList').click(function(){
 				SaveCategory();
 			});
-			$('#cat_name').keyup(function (event) {
+			$('#cat_name').on('keyup', function (event) {
 				if (event.which === 13) {
 					event.preventDefault();
 					SaveCategory();
@@ -522,7 +512,8 @@ $('#category').on('click', function() {
 					var c_id = e.target.id;
 					if(c_id == 'deleteCat') return;
 					CategoryList.forEach(category => {
-						if(category.catID == c_id){
+						if(category.categoryId == c_id){
+							alert()
 							OpenCatDetail(category);
 						}
 					});
@@ -534,9 +525,9 @@ $('#category').on('click', function() {
 			
 			function DeleteCat(id){
 				CategoryList.forEach(category => {
-					if(category.catID == id){
+					if(category.categoryId == id){
 						for(let i = 0; i < CategoryList.length; i++){
-							if(CategoryList[i].catID == id){
+							if(CategoryList[i].categoryId == id){
 								CategoryList.splice(i, 1);
 								SetKeyValue("CategoryList", JSON.stringify(CategoryList));
 								break;
@@ -548,10 +539,10 @@ $('#category').on('click', function() {
 			}
 			function EditCat(id){
 				for(let i = 0; i < CategoryList.length; i++){
-					if(CategoryList[i].catID == id){
+					if(CategoryList[i].categoryId == id){
 						let div = $('#c_name').text();
 						if(div == '' || div == null) return;
-						CategoryList[i].catName = div;
+						CategoryList[i].name = div;
 						SetKeyValue("CategoryList", JSON.stringify(CategoryList));
 						cat_list.html('');
 						CategoryList.forEach(c => {
@@ -572,13 +563,14 @@ $('#category').on('click', function() {
 			});
 
 			function OpenCatDetail(category) {
+				alert()
 				$('.catModalDetailCover').fadeIn(100);
 				$('.catModalDetailCover').css({'display': 'flex'});
-				$('#c_name').text(category.catName);
-				$('#nop').text(category.NoP);
-				$('.catDetailBox').attr('id', category.catID);
+				$('#c_name').text(category.name);
+				$('#noP').text(category.noP);
+				$('.catDetailBox').attr('id', category.categoryId);
 				$('#btnToDeleteCat').click(function(){
-					DeleteCat(category.catID);
+					DeleteCat(category.categoryId);
 					CloseCatDetail();
 				})
 				$('#c_name').keyup(function(e){
@@ -592,29 +584,38 @@ $('#category').on('click', function() {
 			}
 
 			function SaveCategory() {
+				loadingFrame.toggleClass('hidden')
 				const catElement = $('#cat_name');
-				if(catElement.val() == '' || catElement.val() == null) return;
-				let category = new Category(CategoryList.length, catElement.val());
+				if(catElement.val() == '' || catElement.val() == null) {
+					loadingFrame.toggleClass('hidden')
+				}
+				let category = new Category(0, catElement.val());
 				cat_list.prepend(cat_template(category));
 				catElement.val('');
 				CategoryList.push(category);
-				SetKeyValue("CategoryList", JSON.stringify(CategoryList));
+				CategoryService.AddCategogry(baseUrl, category, () => {
+					CategoryService.GetCategories(baseUrl, (data) => {
+						CategoryList = data
+						SetKeyValue("CategoryList", JSON.stringify(CategoryList))
+						loadingFrame.toggleClass('hidden')
+					})
+				})
 				AddEvents();
 			}
 		}
 	});
 });
 
-let cat_template = (category) => {
-	return `<div class="category" id="` + category.catID + `">
-				<h5 class="cat-name">` + category.catName + `</h5>
+var cat_template = (category) => {
+	return `<div class="category" id="` + category.categoryId + `">
+				<h5 class="cat-name">` + category.name + `</h5>
 				<img src="images/delicon.png" alt="" class="itDel deleteCat" id="">
 			</div>`;
 }
 
-let sales_template = (salesItem) => {
+var sales_template = (salesItem) => {
 	return `<div class="sales-item" id="` + salesItem.saleID + `">
-				<h5 class="cat-name">` + salesItem.item_name + `</h5>
+				<h5 class="cat-name">` + salesItem.itemName + `</h5>
 				<span class="s-el">Qty: ` + salesItem.quantity + `</span>
 				<span class="s-el">UP: ` + salesItem.unit_price + `</span>
 				<span class="s-el">Amount: ` + salesItem.amount + `fcfa</span>
@@ -693,7 +694,7 @@ function reset_es() {
 	btmmod.text('Add Item');
 }
 
-$('.fl-BtnCover').on('mouseover', () => {
+$('.fl-BtnCover').on('pointerover', () => {
 	$('.fl-BtnCover').animate({
 		height: '185px'
 	},
@@ -703,7 +704,7 @@ $('.fl-BtnCover').on('mouseover', () => {
 		});
 })
 
-$('.fl-BtnCover').on('mouseleave', () => {
+$('.fl-BtnCover').on('pointerleave', () => {
 	setTimeout(function(){
 		$('.fl-BtnCover').animate({
 			height: '72px'
@@ -722,7 +723,7 @@ function OpenDetails(item){
 	});
 	$('.it_avatar').attr('src', item.item_img);
 	$('#d_id').text(item.itemID);
-	$('#d_name').text(item.item_name);
+	$('#d_name').text(item.itemName);
 	$('#d_type').text(item.item_type);
 	$('#d_price').text(item.item_price);
 	$('#d_stock').text(item.unit_price);
@@ -732,7 +733,7 @@ function OpenDetails(item){
 
 function UpdateItem(id, item) {
 	uid = id;
-	_ = $('#it-name').val(item.item_name);
+	_ = $('#it-name').val(item.itemName);
 	_ = $('#it-type').val(item.item_type);
 	_ = $('#it-price').val(item.unit_price);
 	_ = $('#it-stock').val(item.in_stock);
@@ -742,6 +743,4 @@ function UpdateItem(id, item) {
 	btmmod.text('Update');
 }
 
-$(document).ready(() => {
-	atClose(3000);
-});
+
