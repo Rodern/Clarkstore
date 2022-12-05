@@ -1,4 +1,11 @@
 
+let IsLoggedIn = (callback) => {
+    if(GetKeyValue(IsLoggedInKeyName) != 'true'){
+        _ROUTER.navigate('/welcome')
+        return
+    }
+    callback()
+}
 
 /*** Pop up box functionalities - Begin ***/
 
@@ -109,17 +116,9 @@
 /*** Methods making ajax calls to server - End ***/
 
 
-/*** Methods to reder to the DOM - Begin ***/
+/*** Methods to render to the DOM - Begin ***/
 
 function loadWelcome() {
-    /* var welcomeDom = $.ajax({
-        url: "routes/welcome.html",
-        success: function() {
-            var wDom = $(welcomeDom.responseText).appendTo($('.main_content')).ready(function () {
-                $.getScript('scripts/index.js');
-            });
-        }
-    }); */
     main_view.load('routes/welcome.html').ready((data) => {
         UserId = 0;
         Token = '';
