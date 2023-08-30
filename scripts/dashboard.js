@@ -172,7 +172,7 @@ $('#enterSales').on('click', function(){
 							/*var str = element.unit_price.substring(4);
 							 str = str.replace('.00', '');
 							str = str.replace(',', ''); */
-							$('#itprice').val(price);
+							$('#itprice').val(parseInt(price.substring(4)))
 						}
 					});
 				//}
