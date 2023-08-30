@@ -80,7 +80,8 @@ class Router {
             }
             
         } */
-        if(route == '/') return
+        alert(route)
+        if(route == '/' || route == '') return
         if(matched == true) return
         popUpBox('error', 'Invalid: Route not found!', 'acceptInvalid', 'none', () =>{
             clearPopUpBox();
