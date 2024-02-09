@@ -118,7 +118,8 @@ let baseUrl_2 = 'https://store-project-livid.vercel.app/'
 
 
 let getRouteName = (url = location.href) => {
-    return location.href.substring(url.lastIndexOf('#') + 1)
+    if(url.includes('#')) return location.href.substring(url.lastIndexOf('#') + 1)
+    return location.href.substring(url.lastIndexOf('/') + 1)
 }
 
 const routeToPath = (name) => {
@@ -140,6 +141,7 @@ const pageRoute = (event) => {
 
 window.onload = (e) => {
     e.preventDefault()
+    //alert(getRouteName())
     routeToPath(getRouteName());
 }
 

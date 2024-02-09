@@ -178,7 +178,7 @@ $('#enterSales').on('click', function(){
 				//}
 			})
 			var minimum_qty = 1;
-			$('#it_qty').keyup(function () {
+			$('#it_qty').change(function () {
 				var qty = $('#it_qty').val();
 				var utp = $('#itprice').val();
 				var name = $('#itname').val().toString();
@@ -513,7 +513,7 @@ $('#category').on('click', function() {
 					if(c_id == 'deleteCat') return;
 					CategoryList.forEach(category => {
 						if(category.categoryId == c_id){
-							alert()
+							//alert()
 							OpenCatDetail(category);
 						}
 					});
@@ -591,6 +591,7 @@ $('#category').on('click', function() {
 				}
 				let category = new Category(0, catElement.val());
 				cat_list.prepend(cat_template(category));
+						loadingFrame.toggleClass('hidden')
 				catElement.val('');
 				CategoryList.push(category);
 				CategoryService.AddCategogry(baseUrl, category, () => {

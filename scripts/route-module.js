@@ -47,10 +47,13 @@ class Router {
     match(route) {
         let matched = false
         this.routes.forEach(iroute => {
+                //alert(route)
             if(iroute.path == route) {
                 iroute.handler();
+
                 this.location(route)
                 matched = true
+                //alert(route)
                 return
             }
         });
@@ -81,7 +84,7 @@ class Router {
             
         } */
         //alert(route)
-        if(route == '/' || route == '') return
+        if(route == '/' || route == '' || route == null) return
         if(matched == true) return
         popUpBox('error', 'Invalid: Route not found!', 'acceptInvalid', 'none', () =>{
             clearPopUpBox();
@@ -110,3 +113,5 @@ _ROUTER.root = window.location.origin;
 
 _ROUTER.add({name: 'Dashboard', path: '/dashboard', handler: () => Loader()});
 _ROUTER.add({name: 'Welcome', path: '/welcome', handler: () => loadWelcome()});
+_ROUTER.add({name: 'Home', path: '/', handler: () => loadWelcome()});
+_ROUTER.add({name: 'Index', path: '', handler: () => loadWelcome()});
